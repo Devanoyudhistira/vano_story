@@ -54,8 +54,9 @@ async function getdata(pagenumber: string) {
 }
 
 export async function getcountdata(): Promise<number> {
-  await client.connect()
-  const collection = await client.db("devastory").collection("blogs");
+  await client.connect();
+  const collection = client.db("devastory").collection("blogs");
+  console.log(Math.ceil((await collection.countDocuments({})) / 6));
 
   return collection.countDocuments({});
 }

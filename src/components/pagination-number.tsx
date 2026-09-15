@@ -3,13 +3,12 @@ import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
+  PaginationItem,  
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
 
-export default function Paginationnumber({ page }: { page: string }) {
+export default function Paginationnumber({ page,maximum }: { page: string,maximum:number }) {
   return (
     <Pagination>
       <PaginationContent>
@@ -19,12 +18,9 @@ export default function Paginationnumber({ page }: { page: string }) {
         <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 1 : Number(page) - 3} />
         <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 2 : Number(page) - 2} />
         <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 3 : Number(page) - 1} />
-        {Number(page) >= 3 && <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? Number(page) + 1 : Number(page)} />}
+        {maximum !== Number(page) && Number(page) >= 3 && <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? Number(page) + 1 : Number(page)} />}        
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href={`/news?page=${Number(page) + 1}`} />
+         {maximum !== Number(page) && <PaginationNext href={`/news?page=${Number(page) + 1}`} />}
         </PaginationItem>
       </PaginationContent>
     </Pagination>

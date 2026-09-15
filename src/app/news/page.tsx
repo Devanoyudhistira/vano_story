@@ -34,10 +34,10 @@ type Props = {
   }>;
 };
 
-export default async function News({searchParams}:Props) {
-  const {page} = await searchParams
-  const datacount = await getcountdata()
-  
+export default async function News({ searchParams }: Props) {
+  const { page } = await searchParams;
+  const datacount = await getcountdata();
+
   const alldata: Blog[] = await getdata(page);
   return (
     <div>
@@ -51,8 +51,7 @@ export default async function News({searchParams}:Props) {
         <Badge variant={"outline"} className="text-md h-5 ">
           {" "}
           <Circle className="fill-green-500 text-green-400 animate-pulse " />{" "}
-          all news total <Dot className="animate-pulse" />{" "}
-          {datacount}{" "}
+          all news total <Dot className="animate-pulse" /> {datacount}{" "}
         </Badge>
         <div className="flex flex-col gap-2 px-1 border-t-2 pb-2 border-border mt-3">
           <h1 className="text-3xl font-bold capitalize flex items-center gap-1 mb-3 mt-2">
@@ -78,7 +77,7 @@ export default async function News({searchParams}:Props) {
           ))}
         </div>
 
-        <Paginationnumber page={page} />
+        <Paginationnumber maximum={Math.ceil(datacount / 6)} page={page ? page : "1"} />
       </main>
     </div>
   );
