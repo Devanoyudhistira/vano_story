@@ -5,7 +5,7 @@ import Navbar from "@/components/navbar";
 import Newscard from "@/components/news-card";
 import Newscardpopular from "@/components/news-card-popular";
 import truncate from "@/lib/truncat";
-import getdata from "@/models/getdata";
+import getalldata from "@/models/getalldata";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
 
@@ -33,7 +33,7 @@ export default async function Home() {
     };
   };
 
-  const alldata: Blog[] = await getdata();
+  const alldata: Blog[] = await getalldata("1");
 
   return (
     <div>
@@ -50,6 +50,7 @@ export default async function Home() {
               ?.map((e) => e?.content?.[0]?.text ?? "")
               .join(" ") ?? ""
           }
+          id={alldata[0]._id.toString()}
         />
         <div className="flex flex-col gap-2 px-1 py-1">
           <div className="flex flex-row gap-2 items-center">
