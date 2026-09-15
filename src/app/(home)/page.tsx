@@ -1,43 +1,125 @@
 import Authorcard from "@/components/authorcard";
-import Editorcard from "@/components/authorcard";
+// import Editorcard from "@/components/authorcard";
 import Mustread from "@/components/mustread";
 import Navbar from "@/components/navbar";
 import Newscard from "@/components/news-card";
 import Newscardpopular from "@/components/news-card-popular";
+import truncate from "@/lib/truncat";
+import getdata from "@/models/getdata";
 import { Circle } from "lucide-react";
+import { ObjectId } from "mongodb";
 
 export default async function Home() {
-  
+  type Blog = {
+    _id: ObjectId;
+    Author: string;
+    Date_created: string;
+    Language: string;
+    Like: number;
+    Thumbnail: string;
+    Title: string;
+    Topic_genre: string;
+    View_count: number;
+
+    Content: {
+      type: string;
+      content?: {
+        type: string;
+        content?: {
+          type: string;
+          text?: string;
+        }[];
+      }[];
+    };
+  };
+
+  const alldata: Blog[] = await getdata();
 
   return (
     <div>
       <Navbar />
       <main className="flex  flex-col px-1 gap-3 py-2 items-center">
-        <Newscardpopular />
+        <Newscardpopular
+          image={alldata[0]?.Thumbnail}
+          author={alldata[0]?.Author}
+          genre={alldata[0]?.Topic_genre}
+          title={alldata[0]?.Title}
+          date={alldata[0]?.Date_created}
+          description={
+            alldata[0]?.Content?.content
+              ?.map((e) => e?.content?.[0]?.text ?? "")
+              .join(" ") ?? ""
+          }
+        />
         <div className="flex flex-col gap-2 px-1 py-1">
-          <div className="flex flex-row gap-2 items-center" >
-            <h1 className="text-xl font-bold capitalize" >Latest news</h1>
+          <div className="flex flex-row gap-2 items-center">
+            <h1 className="text-xl font-bold capitalize">Latest news</h1>
             <Circle className="animate-pulse size-3 fill-red-500 text-red-500" />
           </div>
-          <Newscard />
-          <Newscard />
-          <Newscard />
-          <Newscard />
-          <Newscard />
+          <Newscard
+            image={alldata[0]?.Thumbnail}
+            author={alldata[0]?.Author}
+            category={alldata[0]?.Topic_genre}
+            title={alldata[0]?.Title}
+            date={alldata[0]?.Date_created}
+          />
+          <Newscard
+            image={alldata[1]?.Thumbnail}
+            author={alldata[1]?.Author}
+            category={alldata[1]?.Topic_genre}
+            title={alldata[1]?.Title}
+            date={alldata[1]?.Date_created}
+          />
+          <Newscard
+            image={alldata[2]?.Thumbnail}
+            author={alldata[2]?.Author}
+            category={alldata[2]?.Topic_genre}
+            title={alldata[2]?.Title}
+            date={alldata[2]?.Date_created}
+          />
         </div>
-        <div className="flex flex-col items-center gap-2" >
-          <h1 className="text-xl font-bold text-red-500 self-start capitalize" >  Must read </h1>
-          <Mustread/> 
-          <Newscard className="w-14 h-14" gap="gap-5" />
-          <Newscard className="w-14 h-14" gap="gap-5" />          
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-xl font-bold text-red-500 self-start capitalize">
+            {" "}
+            Must read{" "}
+          </h1>
+          <Mustread
+            description={truncate(
+              alldata[10]?.Content?.content
+                ?.map((e) => e?.content?.[0]?.text ?? "")
+                .join(" ") ?? "",
+              100,
+            )}
+            image={alldata[10]?.Thumbnail}
+            author={alldata[10]?.Author}
+            category={alldata[10]?.Topic_genre}
+            title={alldata[10]?.Title}
+            date={alldata[10]?.Date_created}
+          />
+          <Newscard
+            image={alldata[5]?.Thumbnail}
+            author={alldata[5]?.Author}
+            category={alldata[5]?.Topic_genre}
+            title={alldata[5]?.Title}
+            date={alldata[5]?.Date_created}
+          />
+          <Newscard
+            image={alldata[7]?.Thumbnail}
+            author={alldata[7]?.Author}
+            category={alldata[7]?.Topic_genre}
+            title={alldata[7]?.Title}
+            date={alldata[7]?.Date_created}
+          />
         </div>
-        <div className="flex flex-col w-full px-1 items-center overflow-x-auto scrollbar-hide gap-1" >        
-          <h1 className="text-xl font-bold self-start capitalize" >top creator</h1>
+        <div className="flex flex-col w-full px-1 items-center overflow-x-auto scrollbar-hide gap-1">
+          <h1 className="text-xl font-bold self-start capitalize">
+            top creator
+          </h1>
           <div className="flex flex-col px-1 gap-1.5 w-full ">
-            <Authorcard/>
-            <Authorcard/>
-            <Authorcard/>
-            <Authorcard/>
+            <Authorcard />
+            <Authorcard />
+            <Authorcard />
+            <Authorcard />
           </div>
         </div>
       </main>

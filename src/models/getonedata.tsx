@@ -1,6 +1,6 @@
-"use server";
+"use server"
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
-const uri: string = process.env.NEXT_MONGO_PASSWORD!;
+const uri:string = process.env.NEXT_MONGO_PASSWORD!;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -32,32 +32,15 @@ type Blog = {
   };
 };
 
-async function getdata(pagenumber: string) {
-  const page = pagenumber;
-  const limit = 6;
 
-  const skip = (Number(page) - 1) * limit;
+
+async function getonedata(query:string) {
   try {
     await client.connect();
-    const connection = await client
-      .db("devastory")
-      .collection<Blog>("blogs")
-      .find({})
-      .skip(skip)
-      .limit(limit)
-      .sort({ Date_created: -1 })
-      .toArray();
-    return connection;
+    const connection = await client.db("devastory").collection<Blog>("blogs").findOne({_id : new ObjectId(query) });    
+    return connection
   } finally {
     await client.close();
   }
 }
-
-export async function getcountdata(): Promise<number> {
-  await client.connect()
-  const collection = await client.db("devastory").collection("blogs");
-
-  return collection.countDocuments({});
-}
-
-export default getdata;
+export default getonedata;

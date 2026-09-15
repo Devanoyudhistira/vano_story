@@ -17,8 +17,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
+      <body className="min-h-full flex flex-col pb-20">
+        <div>{children}</div>
         <Footnav />
       </body>
     </html>

@@ -1,28 +1,30 @@
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
+import Pagenumber from "./pagenumber";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./ui/pagination";
 
-export default function Paginationnumber() {
+export default function Paginationnumber({ page }: { page: string }) {
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          {Number(page) !== 1 && <PaginationPrevious href={`/news?page=${Number(page) - 1}`} />}
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink isActive href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" >
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
+        <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 1 : Number(page) - 3} />
+        <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 2 : Number(page) - 2} />
+        <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? 3 : Number(page) - 1} />
+        {Number(page) >= 3 && <Pagenumber realpage={page} pagenumber={Number(page) <= 3 ? Number(page) + 1 : Number(page)} />}
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href={`/news?page=${Number(page) + 1}`} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

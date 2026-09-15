@@ -12,7 +12,7 @@ import { Circle, Search } from "lucide-react";
 
 export default function Author() {
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden pb-3">
       <header className="py-4 mt-2 px-3 flex flex-col gap-1">
         <Badge variant={"outline"}>
           {" "}
