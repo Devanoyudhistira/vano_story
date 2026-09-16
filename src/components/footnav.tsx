@@ -6,11 +6,11 @@ import {  FaceSlightlySmiling, House, Newspaper, PersonStanding } from "lucide-r
 import { cn } from "@/lib/utils";
 
 export default function Footnav() {
-  const pathname: string = usePathname();
+  const pathname: string = usePathname();  
   const urlname:Array<string> = pathname.split("/");
-  console.log(urlname);
+  console.log(urlname);  
   return (
-    <footer className="grid grid-cols-4 w-full fixed bottom-0 bg-primary ">
+    !urlname.includes("sign") &&  <footer className="grid grid-cols-4 w-full fixed bottom-0 bg-primary ">
       <Navbutton
         target="/"
         icon={

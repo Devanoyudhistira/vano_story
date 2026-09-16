@@ -24,7 +24,7 @@ export default async function Page({ params }: Props) {
   const html = generateHTML(data.Content, [StarterKit]);
 
   return (
-    <div className="w-screen flex flex-col">
+    <div className="w-screen flex overflow-x-hidden flex-col">
       <Navbar />
       <main className="gap-1" >
         <Image
@@ -34,13 +34,13 @@ export default async function Page({ params }: Props) {
           height={500}
           width={500}
         />
-        <h1 className="text-2xl px-2 font-semibold text-black">
+        <h1 className="text-2xl px-2 my-1 font-semibold text-black">
           {" "}
           {data.Title}{" "}
         </h1>
         <Newsauthorbar name="devano yudhistira" date={data.Date_created} />
-        <div className="px-2" dangerouslySetInnerHTML={{ __html: html }} />;
+        <div className="px-2 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
     </div>
-  );
+  )
 }
