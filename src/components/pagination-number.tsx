@@ -9,8 +9,9 @@ import {
 } from "./ui/pagination";
 
 export default function Paginationnumber({ page,maximum }: { page: string,maximum:number }) {
+  console.log(maximum)
   return (
-    <Pagination>
+   maximum > 1 && <Pagination>
       <PaginationContent>
         <PaginationItem>
           {Number(page) !== 1 && <PaginationPrevious href={`/news?page=${Number(page) - 1}`} />}

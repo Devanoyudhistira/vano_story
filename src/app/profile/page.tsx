@@ -1,6 +1,69 @@
+import Navbar from "@/components/navbar";
+import getuser from "@/models/profile";
+import Image from "next/image";
+import { Userprops } from "@/models/getonedata";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Pen, Plus } from "lucide-react";
+import { getdatafromuser } from "@/models/getdata";
+import Newscardpopular from "@/components/news-card-popular";
 
-
-export default function Profile(){
-    return <main className="h-screen w-screen flex flex-col items-end justify-end">        
+export default async function Profile() {
+  const userdata: Userprops | boolean | null = await getuser();
+  const storyauthor = await getdatafromuser("1");
+  if (!userdata) {
+    return <div> nothing </div>;
+  }
+  console.log(storyauthor)
+  return (
+    <main className="h-screen w-screen flex flex-col gap-1">
+      <Navbar />
+      <div className="flex flex-col gap-2 items-center">
+        <div className="w-28 h-28 bg-red-500 rounded-full"></div>
+        <h1 className="text-2xl font-semibold "> {userdata.Name} </h1>
+        <div className="flex gap-0.5 items-center">
+          {userdata.Category.map((e) => (
+            <Badge
+              variant={"destructive"}
+              className="text-sm font-semibold w-max h-max px-2 py-1 rounded-sm"
+              key={e}
+            >
+              {" "}
+              {e}{" "}
+            </Badge>
+          ))}
+        </div>
+        <p className="text-xs font-medium "> {userdata.Description} </p>
+        <div className="flex gap-2 items-center">
+          <Button size={"sm"} variant={"destructive"}>
+            {" "}
+            <Plus /> Create new post{" "}
+          </Button>
+          <Button size={"sm"} variant={"outline"}>
+            {" "}
+            <Pen /> Edit profile{" "}
+          </Button>
+        </div>
+        {/* <div className="bg-red-500 w-200 h-200" ></div> */}
+        <div className="px-2 flex flex-col gap-3 pb-14" >
+          {storyauthor?.map((e) => (
+            <Newscardpopular
+              key={e._id.toString()}
+              title={e.Title}
+              author={e.Author}
+              description={
+                e?.Content?.content
+                  ?.map((e) => e?.content?.[0]?.text ?? "")
+                  .join(" ") ?? ""
+              }
+              image={e.Thumbnail}
+              date={e.Date_created}
+              genre={e.Topic_genre}
+              id={e._id.toString()}
+            />
+          ))}
+        </div>
+      </div>
     </main>
+  );
 }

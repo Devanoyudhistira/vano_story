@@ -39,7 +39,7 @@ export default async function Home() {
 
   const {data:userdata} = await supabasauth.auth.getUser()
 
-  console.log(userdata)
+  console.log(alldata)
   return (
     <div>
       <Navbar />
@@ -96,25 +96,25 @@ export default async function Home() {
                 .join(" ") ?? "",
               100,
             )}
-            image={alldata[10]?.Thumbnail}
-            author={alldata[10]?.Author}
-            category={alldata[10]?.Topic_genre}
-            title={alldata[10]?.Title}
-            date={alldata[10]?.Date_created}
+            image={alldata[0]?.Thumbnail}
+            author={alldata[0]?.Author}
+            category={alldata[0]?.Topic_genre}
+            title={alldata[0]?.Title}
+            date={alldata[0]?.Date_created}
           />
           <Newscard
-            image={alldata[5]?.Thumbnail}
-            author={alldata[5]?.Author}
-            category={alldata[5]?.Topic_genre}
-            title={alldata[5]?.Title}
-            date={alldata[5]?.Date_created}
+            image={alldata[2]?.Thumbnail}
+            author={alldata[2]?.Author}
+            category={alldata[2]?.Topic_genre}
+            title={alldata[2]?.Title}
+            date={alldata[2]?.Date_created}
           />
           <Newscard
-            image={alldata[7]?.Thumbnail}
-            author={alldata[7]?.Author}
-            category={alldata[7]?.Topic_genre}
-            title={alldata[7]?.Title}
-            date={alldata[7]?.Date_created}
+            image={alldata[3]?.Thumbnail}
+            author={alldata[3]?.Author}
+            category={alldata[3]?.Topic_genre}
+            title={alldata[3]?.Title}
+            date={alldata[3]?.Date_created}
           />
         </div>
         <div className="flex flex-col w-full px-1 items-center overflow-x-auto scrollbar-hide gap-1">

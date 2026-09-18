@@ -11,14 +11,10 @@ const client = new MongoClient(uri, {
 const users = client.db("devastory").collection("users");
 await users.createIndex({ email: 1 }, { unique: true });
 
-export async function create(objectdata: object) {
-  try {
+export async function create(objectdata: object) {  
     await client.connect();
 
     const insertdata = await users.insertOne(objectdata);
 
-    console.log(insertdata.acknowledged);    
-  } finally {
-    await client.close();
-  }
+    console.log(insertdata.acknowledged);      
 }

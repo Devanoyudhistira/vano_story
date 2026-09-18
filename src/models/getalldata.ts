@@ -33,8 +33,7 @@ type Blog = {
 };
 
 async function getalldata(pagenumber: string) {
-  
-  try {
+    
     await client.connect();
     const connection = await client
       .db("devastory")
@@ -42,10 +41,7 @@ async function getalldata(pagenumber: string) {
       .find({})     
       .sort({ Date_created: -1 })
       .toArray();
-    return connection;
-  } finally {
-    await client.close();
-  }
+    return connection; 
 }
 
 export default getalldata;

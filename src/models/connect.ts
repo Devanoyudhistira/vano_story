@@ -10,12 +10,8 @@ const client = new MongoClient(uri, {
 });
 
 async function run() {
-  try {
     await client.connect();
     const connection = await client.db("devastory").collection("blogs");
-    console.log(await connection.find({}).toArray());
-  } finally {
-    await client.close();
-  }
+    console.log(await connection.find({}).toArray());  
 }
 export default run;

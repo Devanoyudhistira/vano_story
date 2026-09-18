@@ -5,6 +5,8 @@ import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import truncate from "@/lib/truncat";
+import getuser, { getanotheruser, getusername } from "@/models/profile";
+import { Userprops } from "@/models/getonedata";
 
 type post = {
   classname?: string;
@@ -17,7 +19,7 @@ type post = {
   id:string
 };
 
-export default function Newscardpopular({
+export default async function Newscardpopular({
   classname,
   title,
   genre,
@@ -27,6 +29,7 @@ export default function Newscardpopular({
   date,
   id
 }: post) {
+   
   return (
     <Link href={`/news/${id}`} >
       <Card className="pt-0  gap-2">
@@ -51,7 +54,7 @@ export default function Newscardpopular({
           </Badge>
         </div>
         <CardHeader className="flex justify-left w-80 px-2 text-xs gap-1 capitalize">
-          <span className="text-red-500"> {author} </span>
+          <span className="text-red-500"> {await getusername(author)} </span>
           <span> • </span>
           <span className="text-gray-500 w-max">
             {" "}

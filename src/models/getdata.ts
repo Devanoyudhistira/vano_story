@@ -1,5 +1,6 @@
 "use server";
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import getuser from "./profile";
 const uri: string = process.env.NEXT_MONGO_PASSWORD!;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -37,20 +38,38 @@ async function getdata(pagenumber: string) {
   const limit = 6;
 
   const skip = (Number(page) - 1) * limit;
-  try {
-    await client.connect();
-    const connection = await client
-      .db("devastory")
-      .collection<Blog>("blogs")
-      .find({})
-      .skip(skip)
-      .limit(limit)
-      .sort({ Date_created: -1 })
-      .toArray();
-    return connection;
-  } finally {
-    await client.close();
+  await client.connect();
+  const connection = await client
+    .db("devastory")
+    .collection<Blog>("blogs")
+    .find({})
+    .skip(skip)
+    .limit(limit)
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
+}
+export async function getdatafromuser(pagenumber: string) {
+  const page = pagenumber;
+  const limit = 6;
+  const skip = (Number(page) - 1) * limit;
+
+  await client.connect();
+  const user = await getuser();
+
+  if (!user) {
+    return;
   }
+
+  const connection = await client
+    .db("devastory")
+    .collection<Blog>("blogs")
+    .find({ Author: user._id.toString() })
+    .skip(skip)
+    .limit(limit)
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
 }
 
 export async function getcountdata(): Promise<number> {

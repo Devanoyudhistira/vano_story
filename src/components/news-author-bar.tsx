@@ -6,7 +6,7 @@ type props={
 }
 
 export default function Newsauthorbar({name,date}:props){
-    return <div className="flex items-center py-0.5 border border-gray-500/20 gap-2 px-2" >
+    return <div className="flex items-center w-max rounded-xl ml-1 py-0.5  gap-2 px-2" >
         <div className="w-9 h-9 rounded-full border-red-400 border" ></div>
         <div className="flex flex-col" >
             <h1 className="text-xs capitalize font-semibold text-red-500 " > {name} </h1>

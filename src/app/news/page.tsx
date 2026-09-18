@@ -6,6 +6,7 @@ import Newscardpopular from "@/components/news-card-popular";
 import { ObjectId } from "mongodb";
 import getdata, { getcountdata } from "@/models/getdata";
 
+
 type Blog = {
   _id: ObjectId;
   Author: string;
@@ -63,7 +64,7 @@ export default async function News({ searchParams }: Props) {
             <Newscardpopular
               id={e._id.toString()}
               image={e?.Thumbnail}
-              author={e?.Author}
+              author={e.Author}
               genre={e?.Topic_genre}
               title={e?.Title}
               date={e?.Date_created}
@@ -77,7 +78,10 @@ export default async function News({ searchParams }: Props) {
           ))}
         </div>
 
-        <Paginationnumber maximum={Math.ceil(datacount / 6)} page={page ? page : "1"} />
+        <Paginationnumber
+          maximum={Math.ceil(datacount / 6)}
+          page={page ? page : "1"}
+        />
       </main>
     </div>
   );

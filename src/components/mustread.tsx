@@ -3,6 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { cn } from "@/lib/utils";
 import moment from "moment";
 import Image from "next/image";
+import { getusername } from "@/models/profile";
 
 type post = {
   className?: string;  
@@ -20,7 +21,7 @@ export default function Mustread({className,title,author,date,image,description}
       <div className="w-full h-full relative flex flex-col justify-end px-2 py-1">
         <Image src={image} height={"500"} width={500} alt={title} className="w-full h-full object-cover object-center absolute top-0 left-0 " />
         <CardHeader className="flex gap-2 px-0 z-2 items-center">
-          <h1 className="text-md font-bold text-red-500"> {author} </h1>
+          <h1 className="text-md font-bold text-red-500"> { getusername(author)} </h1>
           <Dot />
           <h1> {moment(date).fromNow() } </h1>
         </CardHeader>
