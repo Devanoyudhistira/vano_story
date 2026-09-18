@@ -6,10 +6,12 @@ import Newscard from "@/components/news-card";
 import Newscardpopular from "@/components/news-card-popular";
 import truncate from "@/lib/truncat";
 import getalldata from "@/models/getalldata";
+import { createClient } from "@/supabase/server";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
 
 export default async function Home() {
+  const supabasauth = await createClient()
   type Blog = {
     _id: ObjectId;
     Author: string;
@@ -35,6 +37,9 @@ export default async function Home() {
 
   const alldata: Blog[] = await getalldata("1");
 
+  const {data:userdata} = await supabasauth.auth.getUser()
+
+  console.log(userdata)
   return (
     <div>
       <Navbar />
