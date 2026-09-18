@@ -15,7 +15,7 @@ export async function signIn() {
     },
   });
 
-  console.log(data.url);
+  // console.log(data.url);
   if (data.url) {
     redirect(data.url);
   }

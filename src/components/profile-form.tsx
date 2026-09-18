@@ -5,7 +5,8 @@ import Profilecreation from "./profile-creation";
 import Textinput from "./text-input";
 import Topicoption from "./topic-option";
 import { Button } from "./ui/button";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function Profileform() {
   const [topic, settopic] = useState<Array<string>>([]);
@@ -21,7 +22,12 @@ export default function Profileform() {
   function removetopic() {
     settopic([]);
   }
-  console.log(topic);
+  console.log(state);
+  useEffect(() => {
+    if (state?.success) {
+      redirect("/profile");
+    }
+  });
   return (
     <form action={action} className="gap-4 flex flex-col items-center px-3">
       <Profilecreation />

@@ -15,7 +15,7 @@ export async function Createprofile(
   prev: CreateProfileState,
   formdata: FormData,
 ) {
-  console.log(category);
+  // console.log(category);
   const supabaseauth = await createClient();
   const { data } = await supabaseauth.auth.getUser();
   const name = formdata.get("name");
@@ -39,9 +39,9 @@ export async function Createprofile(
       Profile_image: "profile/" + finalname,
       Description: description,
       Category: category,
-    },"users");
+    });    
     return { success: true };
   } catch (err) {
-    return { success: false, message: "fail try again" }; 
+    return { success: false, message: "err" }; 
   }
 }

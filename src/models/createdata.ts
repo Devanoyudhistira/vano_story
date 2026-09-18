@@ -8,16 +8,16 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+const users = client.db("devastory").collection("users");
+await users.createIndex({ email: 1 }, { unique: true });
 
-export async function create(objectdata: object,collection:string) {
-  const users = client.db("devastory").collection(collection);
-  await users.createIndex({ email: 1 }, { unique: true });
+export async function create(objectdata: object) {
   try {
     await client.connect();
 
     const insertdata = await users.insertOne(objectdata);
 
-    console.log(insertdata.acknowledged);
+    console.log(insertdata.acknowledged);    
   } finally {
     await client.close();
   }

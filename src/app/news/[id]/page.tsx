@@ -12,8 +12,7 @@ type Props = {
   }>;
 };
 
-export default async function Page({ params }: Props) {
-  console.log(await params);
+export default async function Page({ params }: Props) {  
   const { id } = await params;
   const data = await getonedata(id);
 
