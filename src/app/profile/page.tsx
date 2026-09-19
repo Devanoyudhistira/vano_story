@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Pen, Plus } from "lucide-react";
 import { getdatafromuser } from "@/models/getdata";
 import Newscardpopular from "@/components/news-card-popular";
+import Link from "next/link";
 
 export default async function Profile() {
   const userdata: Userprops | boolean | null = await getuser();
-  const storyauthor = await getdatafromuser("1");
   if (!userdata) {
     return <div> nothing </div>;
   }
-  console.log(storyauthor)
+  const storyauthor = await getdatafromuser("1", userdata._id.toString());
   return (
     <main className="h-screen w-screen flex flex-col gap-1">
       <Navbar />
@@ -35,17 +35,19 @@ export default async function Profile() {
         </div>
         <p className="text-xs font-medium "> {userdata.Description} </p>
         <div className="flex gap-2 items-center">
-          <Button size={"sm"} variant={"destructive"}>
-            {" "}
-            <Plus /> Create new post{" "}
-          </Button>
+          <Link href={"/profile/createpost"}>
+            <Button size={"sm"} variant={"destructive"}>
+              {" "}
+              <Plus /> Create new post{" "}
+            </Button>
+          </Link>
           <Button size={"sm"} variant={"outline"}>
             {" "}
             <Pen /> Edit profile{" "}
           </Button>
         </div>
         {/* <div className="bg-red-500 w-200 h-200" ></div> */}
-        <div className="px-2 flex flex-col gap-3 pb-14" >
+        <div className="px-2 flex flex-col gap-3 pb-14">
           {storyauthor?.map((e) => (
             <Newscardpopular
               key={e._id.toString()}

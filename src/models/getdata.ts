@@ -49,22 +49,16 @@ async function getdata(pagenumber: string) {
     .toArray();
   return connection;
 }
-export async function getdatafromuser(pagenumber: string) {
+export async function getdatafromuser(pagenumber: string,userid:string) {
   const page = pagenumber;
   const limit = 6;
   const skip = (Number(page) - 1) * limit;
 
-  await client.connect();
-  const user = await getuser();
-
-  if (!user) {
-    return;
-  }
-
+  await client.connect();  
   const connection = await client
     .db("devastory")
     .collection<Blog>("blogs")
-    .find({ Author: user._id.toString() })
+    .find({ Author: userid })
     .skip(skip)
     .limit(limit)
     .sort({ Date_created: -1 })

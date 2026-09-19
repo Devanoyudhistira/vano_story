@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export default function Profilecreation() {
+export default function Profilecreation({className}:{className?:string}) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [change, setchange] = useState<string | null>();
 
@@ -36,7 +37,7 @@ const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
         profile photo{" "}
       </CardTitle>
       <CardContent className="flex-row gap-1 px-1">
-        <div className="w-16 h-16 overflow-hidden shrink-0 bg-red-50 rounded-full flex items-center justify-center ">
+        <div className={cn("w-16 h-16 overflow-hidden shrink-0 bg-red-50 rounded-full flex items-center justify-center",className)}>
           {!change ? (
             <Camera className="size-8" />
           ) : (

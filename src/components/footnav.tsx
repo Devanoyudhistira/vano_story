@@ -10,7 +10,7 @@ export default function Footnav() {
   const urlname:Array<string> = pathname.split("/");
   // console.log(urlname);  
   return (
-    !urlname.includes("sign") &&  <footer className="grid grid-cols-4 w-full fixed bottom-0 bg-primary ">
+    !urlname.includes("sign") && !urlname.includes("createpost") &&  <footer className="grid grid-cols-4 w-full fixed bottom-0 bg-primary ">
       <Navbutton
         target="/"
         icon={
