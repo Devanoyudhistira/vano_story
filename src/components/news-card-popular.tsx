@@ -5,8 +5,7 @@ import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import truncate from "@/lib/truncat";
-import getuser, { getanotheruser, getusername } from "@/models/profile";
-import { Userprops } from "@/models/getonedata";
+import {getusername } from "@/models/profile";
 
 type post = {
   classname?: string;

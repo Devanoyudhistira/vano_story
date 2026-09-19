@@ -13,11 +13,6 @@ export default async function getuser():Promise<Userprops | false | null>{
     return userdata
 }
 export async function getanotheruser(query:string):Promise<Userprops | false | null>{
-    const supabaseauth = await createClient()
-    const {data:{user}} = await supabaseauth.auth.getUser()
-    if(!user?.email){
-       return false
-    }
     const userdata = await getoneuserdatabyid(query)
     return userdata
 }
