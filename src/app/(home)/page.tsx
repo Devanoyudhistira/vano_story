@@ -9,7 +9,7 @@ import getalldata from "@/models/getalldata";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
 
-export default async function Home() {  
+export default async function Home() {
   type Blog = {
     _id: ObjectId;
     Author: string;
@@ -40,7 +40,7 @@ export default async function Home() {
     <div>
       <Navbar />
       <main className="flex  flex-col px-1 gap-3 py-2 items-center">
-        {alldata.length > 1 && (
+        {alldata[0] && (
           <Newscardpopular
             image={alldata[0]?.Thumbnail}
             author={alldata[0]?.Author}
@@ -59,32 +59,33 @@ export default async function Home() {
           <div className="flex flex-row gap-2 items-center">
             <h1 className="text-xl font-bold capitalize">Latest news</h1>
             <Circle className="animate-pulse size-3 fill-red-500 text-red-500" />
-          </div>
-          {alldata.length > 1 && (
-            <>
-              {" "}
-              <Newscard
-                image={alldata[0]?.Thumbnail}
-                author={alldata[0]?.Author}
-                category={alldata[0]?.Topic_genre}
-                title={alldata[0]?.Title}
-                date={alldata[0]?.Date_created}
-              />
-              <Newscard
-                image={alldata[1]?.Thumbnail}
-                author={alldata[1]?.Author}
-                category={alldata[1]?.Topic_genre}
-                title={alldata[1]?.Title}
-                date={alldata[1]?.Date_created}
-              />
-              <Newscard
-                image={alldata[2]?.Thumbnail}
-                author={alldata[2]?.Author}
-                category={alldata[2]?.Topic_genre}
-                title={alldata[2]?.Title}
-                date={alldata[2]?.Date_created}
-              />
-            </>
+          </div>{" "}
+          {alldata[0] && (
+            <Newscard
+              image={alldata[0]?.Thumbnail}
+              author={alldata[0]?.Author}
+              category={alldata[0]?.Topic_genre}
+              title={alldata[0]?.Title}
+              date={alldata[0]?.Date_created}
+            />
+          )}
+          {alldata[1] && (
+            <Newscard
+              image={alldata[1]?.Thumbnail}
+              author={alldata[1]?.Author}
+              category={alldata[1]?.Topic_genre}
+              title={alldata[1]?.Title}
+              date={alldata[1]?.Date_created}
+            />
+          )}
+          {alldata[2] && (
+            <Newscard
+              image={alldata[2]?.Thumbnail}
+              author={alldata[2]?.Author}
+              category={alldata[2]?.Topic_genre}
+              title={alldata[2]?.Title}
+              date={alldata[2]?.Date_created}
+            />
           )}
         </div>
         <div className="flex flex-col items-center gap-2">
@@ -92,36 +93,38 @@ export default async function Home() {
             {" "}
             Must read{" "}
           </h1>
-          {alldata.length > 1 && (
-            <>
-              <Mustread
-                description={truncate(
-                  alldata[10]?.Content?.content
-                    ?.map((e) => e?.content?.[0]?.text ?? "")
-                    .join(" ") ?? "",
-                  100,
-                )}
-                image={alldata[0]?.Thumbnail}
-                author={alldata[0]?.Author}
-                category={alldata[0]?.Topic_genre}
-                title={alldata[0]?.Title}
-                date={alldata[0]?.Date_created}
-              />
-              <Newscard
-                image={alldata[2]?.Thumbnail}
-                author={alldata[2]?.Author}
-                category={alldata[2]?.Topic_genre}
-                title={alldata[2]?.Title}
-                date={alldata[2]?.Date_created}
-              />
-              <Newscard
-                image={alldata[3]?.Thumbnail}
-                author={alldata[3]?.Author}
-                category={alldata[3]?.Topic_genre}
-                title={alldata[3]?.Title}
-                date={alldata[3]?.Date_created}
-              />
-            </>
+          {alldata[0] && (
+            <Mustread
+              description={truncate(
+                alldata[10]?.Content?.content
+                  ?.map((e) => e?.content?.[0]?.text ?? "")
+                  .join(" ") ?? "",
+                100,
+              )}
+              image={alldata[0]?.Thumbnail}
+              author={alldata[0]?.Author}
+              category={alldata[0]?.Topic_genre}
+              title={alldata[0]?.Title}
+              date={alldata[0]?.Date_created}
+            />
+          )}
+          {alldata[2] && (
+            <Newscard
+              image={alldata[2]?.Thumbnail}
+              author={alldata[2]?.Author}
+              category={alldata[2]?.Topic_genre}
+              title={alldata[2]?.Title}
+              date={alldata[2]?.Date_created}
+            />
+          )}
+          {alldata[3] && (
+            <Newscard
+              image={alldata[3]?.Thumbnail}
+              author={alldata[3]?.Author}
+              category={alldata[3]?.Topic_genre}
+              title={alldata[3]?.Title}
+              date={alldata[3]?.Date_created}
+            />
           )}
         </div>
         <div className="flex flex-col w-full px-1 items-center overflow-x-auto scrollbar-hide gap-1">

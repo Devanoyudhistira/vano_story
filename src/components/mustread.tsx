@@ -25,7 +25,7 @@ export default function Mustread({className,title,author,date,image,description}
           <Dot />
           <h1> {moment(date).fromNow() } </h1>
         </CardHeader>
-        <CardTitle className="text-lg font-bold  z-2 text-primary" >
+        <CardTitle className="text-lg font-bold   z-2 text-white" >
           {title}
         </CardTitle>
         <CardDescription className="text-gray-500 z-1 text-xs" >
