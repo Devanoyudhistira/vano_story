@@ -8,18 +8,28 @@ import { Field } from "@/components/ui/field";
 import Navbartexteditor from "@/components/navbar-text-editor";
 import { Textarea } from "@/components/ui/textarea";
 import { JSONContent } from "@tiptap/react";
+import Topicoption from "@/components/topic-option";
 
 export default function Page() {
   const [post, setPost] = useState<JSONContent | string>("");
   const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState("");
+  const [topic, settopic] = useState<Array<string>>([]);
+  function addtopic(newtopic: string): void {
+    if (!topic.includes(newtopic) && topic.length !== 1) {
+      settopic((prev) => [...prev, newtopic]);
+    }
+  }
+  function removetopic() {
+    settopic([]);
+  }
   const formdata = new FormData();
   if (image) {
     formdata.append("thumbnail", image);
   }
   formdata.append("content", JSON.stringify(post));
   formdata.append("title", title);
-  // formdata.append("content", post);
+  formdata.append("topic",topic[0])
 
   const onChange = (content: JSONContent | string) => {
     setPost(content);
@@ -46,6 +56,7 @@ export default function Page() {
           className="text-4xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
         />
       </Field>
+      <Topicoption min="1" topicarray={topic} addtopic={addtopic} removetopic={removetopic} />
       <Tiptap content={post} onChange={onChange} />
     </main>
   );

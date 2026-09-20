@@ -10,8 +10,7 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const userdata: Userprops | boolean | null = await getuser();
   const title = formData.get("title");
-  // const topic = formData.get("topic");
-  // const language = formData.get("language");
+  const topic = formData.get("topic");  
   const thumbnail = formData.get("thumbnail");
   const contentString = formData.get("content");
 
@@ -40,7 +39,7 @@ export async function POST(request: Request) {
     Content: content,
     Thumbnail: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/blog/${finalname}`,
     Date_created: new Date().toISOString(),
-    Topic_genre: "technology",
+    Topic_genre: topic,
     Author: await userdata._id.toString(),
     Like: 0,
     Language: "english",
