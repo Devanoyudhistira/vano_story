@@ -2,7 +2,6 @@
 
 import { EditorContent, JSONContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
 import MenuBar from "./menubar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
@@ -21,7 +20,7 @@ export default function RichTextEditor({
         bulletList: {
           HTMLAttributes: {
             class: "list-disc ml-3",
-          },
+          },          
         },
         orderedList: {
           HTMLAttributes: {
@@ -37,7 +36,7 @@ export default function RichTextEditor({
     content: content,
     editorProps: {
       attributes: {
-        class: "min-h-85 border rounded-md bg-slate-50 py-2 px-3",
+        class: "min-h-85 w-full border rounded-md bg-slate-50 py-2 px-3",
       },
     },
     onUpdate: ({ editor }) => {

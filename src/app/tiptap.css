@@ -13,15 +13,15 @@
     @apply text-lg font-semibold my-1.5 
   }
   ul{
-    @apply ml-5 list-disc text-red-500 font-bold 
+    @apply ml-5 list-disc 
   }
   ol{
-    @apply ml-5 list-decimal text-red-500 font-bold 
+    @apply ml-5 list-decimal 
   }
   strong{
     @apply text-red-500
   }    
   blockquote{
-    @apply bg-red-50 px-2 py-2 text-red-600 border-t-2 border-red-700 my-4 font-semibold italic
+    @apply bg-red-50 px-2 py-2 text-red-600 border-t-2 border-red-700  font-semibold italic
   }
 

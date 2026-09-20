@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
           {data.Title}{" "}
         </h1>
         <Newsauthorbar name="devano yudhistira" date={data.Date_created} />
-        <div className="px-2 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
+        <div className="px-4 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
     </div>
   );

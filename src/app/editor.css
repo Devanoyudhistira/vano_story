@@ -19,12 +19,12 @@
     @apply ml-3 list-disc font-normal 
   }
   ol{
-    @apply ml-3 text-xl font-normal
+    @apply ml-3 px-2  font-normal
   }
   strong{
     @apply font-semibold
   }    
   blockquote{
-    @apply bg-red-50 px-3 text-red-600 border-t-2 border-red-700 font-semibold italic w-max 
+    @apply bg-red-50 px-3 text-red-600 border-t-2 border-red-700 font-semibold italic  
   }
 }

@@ -17,7 +17,7 @@ export default function Page() {
   if (image) {
     formdata.append("thumbnail", image);
   }
-  formdata.append("content",JSON.stringify(post));
+  formdata.append("content", JSON.stringify(post));
   formdata.append("title", title);
   // formdata.append("content", post);
 
@@ -26,18 +26,19 @@ export default function Page() {
   };
   const postcontent = async () => {
     await fetch("http://localhost:3003/api/post", {
-      method: "POST",      
-      body:formdata
+      method: "POST",
+      body: formdata,
     });
   };
   return (
     <main className="w-full  ">
       <Navbartexteditor postbutton={postcontent} />
-      <div className="px-2 pt-2 flex flex-col gap-3 "></div>
-      <Thumbnailimageinput
-        setimage={setimage}
-        className="w-full self-center border-2 border-dashed  h-50 rounded-sm"
-      />
+      <div className="px-2 pt-2 flex flex-col gap-3 ">
+        <Thumbnailimageinput
+          setimage={setimage}
+          className="w-full self-center border-2 border-dashed  h-50 rounded-sm"
+        />
+      </div>
       <Field className="px-2 self-center w-[90vw]">
         <Textarea
           onChange={(e) => settitle(e.currentTarget.value)}
