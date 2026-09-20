@@ -8,18 +8,21 @@ import { Pen, Plus } from "lucide-react";
 import { getdatafromuser } from "@/models/getdata";
 import Newscardpopular from "@/components/news-card-popular";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Profile() {
   const userdata: Userprops | boolean | null = await getuser();
   if (!userdata) {
-    return <div> nothing </div>;
+    redirect("/sign");
   }
   const storyauthor = await getdatafromuser("1", userdata._id.toString());
   return (
     <main className="h-screen w-screen flex flex-col gap-1">
       <Navbar />
       <div className="flex flex-col gap-2 items-center">
-        <div className="w-28 h-28 bg-red-500 rounded-full"></div>
+        <div className="w-28 h-28 overflow-hidden rounded-full">
+          <Image className="w-full h-full object-center object-cover" alt={userdata.Name} src={userdata.Profile_image} width={500} height={500} />
+        </div>
         <h1 className="text-2xl font-semibold "> {userdata.Name} </h1>
         <div className="flex gap-0.5 items-center">
           {userdata.Category.map((e) => (
@@ -33,7 +36,7 @@ export default async function Profile() {
             </Badge>
           ))}
         </div>
-        <p className="text-xs font-medium "> {userdata.Description} </p>
+        <p className="text-sm font-medium px-2 w-full flex items-center justify-center text-slate-950 "> {userdata.Description} </p>
         <div className="flex gap-2 items-center">
           <Link href={"/profile/createpost"}>
             <Button size={"sm"} variant={"destructive"}>

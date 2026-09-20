@@ -1,7 +1,6 @@
 import { Button } from "./ui/button";
 export type SubmitbuttonProps = {
   postcontent: () => void;
-  
 };
 
 export default function Submitbutton({postcontent}:SubmitbuttonProps) {

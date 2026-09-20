@@ -11,7 +11,7 @@ export async function signIn() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:3003/api/auth",
+      redirectTo: `${process.env.NEXT_PUBLIC_URL}/api/auth`,
     },
   });
 

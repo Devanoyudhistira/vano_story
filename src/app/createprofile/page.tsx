@@ -1,6 +1,12 @@
 import Profileform from "@/components/profile-form";
+import getuser from "@/models/profile";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const userdata =await getuser()
+  if(userdata){
+    redirect("profile")
+  }
   return (
     <div>
       <main className="flex flex-col gap-1">

@@ -3,6 +3,7 @@
 import { create } from "@/models/createdata";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/supabase/server";
+import supabaseforimage from "@/supabase/supabaseforimage";
 
 export type CreateProfileState = {
   success: boolean;
@@ -32,11 +33,12 @@ export async function Createprofile(
       .substring(2, 10 + 2) +
     "." +
     extension;
+    await supabaseforimage.upload(`profile/${finalname}`, image);
   try {
     await create({
       Email: data.user?.email,
       Name: name,
-      Profile_image: "profile/" + finalname,
+      Profile_image: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`,
       Description: description,
       Category: category,
     });    

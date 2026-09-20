@@ -1,4 +1,3 @@
-
 import Featurelist from "@/components/feature-list";
 import Signupcard from "@/components/signupcard";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +7,14 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
+import getuser from "@/models/profile";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const userdata = await getuser();
+  if (userdata) {
+    redirect("profile");
+  }
   return (
     <div>
       <nav className="px-2 py-1 flex items-center gap-2">
@@ -42,7 +47,7 @@ export default function Page() {
           <Featurelist />
           <Featurelist />
         </CardContent>
-        <Signupcard/>
+        <Signupcard />
       </Card>
     </div>
   );
