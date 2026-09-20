@@ -7,6 +7,7 @@ import Topicoption from "./topic-option";
 import { Button } from "./ui/button";
 import { useActionState, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import { Spinner } from "./ui/spinner";
 
 export default function Profileform() {
   const [topic, settopic] = useState<Array<string>>([]);
@@ -42,9 +43,12 @@ export default function Profileform() {
         variant={"default"}
         className={`capitalize text-xl`}
         size={"lg"}
+        disabled={pending}
       >
         {" "}
-        create profile{" "}
+       { pending ? "loading" : "create profile"}
+       {pending && <Spinner/>}
+       {" "}
       </Button>
     </form>
   );

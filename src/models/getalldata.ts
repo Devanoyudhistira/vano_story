@@ -33,7 +33,7 @@ type Blog = {
 };
 
 async function getalldata(pagenumber: string) {
-    
+    console.log(pagenumber)
     await client.connect();
     const connection = await client
       .db("devastory")

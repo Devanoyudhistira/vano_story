@@ -1,7 +1,6 @@
 "use server";
 
 import { create } from "@/models/createdata";
-import { revalidatePath } from "next/cache";
 import { createClient } from "@/supabase/server";
 import supabaseforimage from "@/supabase/supabaseforimage";
 
@@ -44,6 +43,7 @@ export async function Createprofile(
     });    
     return { success: true };
   } catch (err) {
+    console.log(err)
     return { success: false, message: "err" }; 
   }
 }

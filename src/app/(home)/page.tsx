@@ -6,12 +6,10 @@ import Newscard from "@/components/news-card";
 import Newscardpopular from "@/components/news-card-popular";
 import truncate from "@/lib/truncat";
 import getalldata from "@/models/getalldata";
-import { createClient } from "@/supabase/server";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
 
-export default async function Home() {
-  const supabasauth = await createClient();
+export default async function Home() {  
   type Blog = {
     _id: ObjectId;
     Author: string;
