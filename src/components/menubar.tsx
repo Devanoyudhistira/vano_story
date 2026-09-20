@@ -13,7 +13,7 @@ import {
   ListOrdered,
   Strikethrough,
 } from "lucide-react";
-import { Toggle } from "./ui/toggle"; 
+import { Toggle } from "./ui/toggle";
 import { Editor } from "@tiptap/react";
 
 export default function MenuBar({ editor }: { editor: Editor | null }) {
@@ -78,11 +78,6 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
       preesed: editor.isActive("orderedList"),
     },
     {
-      icon: <Highlighter className="size-4" />,
-      onClick: () => editor.chain().focus().toggleHighlight().run(),
-      preesed: editor.isActive("highlight"),
-    },
-    {
       icon: <BlocksIcon className="size-4" />,
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
       preesed: editor.isActive("blockquote"),
@@ -103,5 +98,5 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
         </Toggle>
       ))}
     </div>
-  )
+  );
 }

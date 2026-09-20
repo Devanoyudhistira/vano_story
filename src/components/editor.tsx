@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, JSONContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
 import MenuBar from "./menubar";
@@ -8,8 +8,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 
 interface RichTextEditorProps {
-  content: string;
-  onChange: (content: string) => void;
+  content: string | JSONContent ; 
+  onChange: (content: string | JSONContent) => void;
 }
 export default function RichTextEditor({
   content,
@@ -42,9 +42,10 @@ export default function RichTextEditor({
     },
     onUpdate: ({ editor }) => {
       // console.log(editor.getHTML());
-      onChange(editor.getHTML());
+      onChange(editor.getJSON());
     },
   })
+  console.log(content)
 
   return (
     <div className="px-1" >

@@ -5,6 +5,7 @@ import Image from "next/image";
 import "@/app/tiptap.css";
 import Navbar from "@/components/navbar";
 import Newsauthorbar from "@/components/news-author-bar";
+import TextAlign from "@tiptap/extension-text-align";
 
 type Props = {
   params: Promise<{
@@ -12,7 +13,7 @@ type Props = {
   }>;
 };
 
-export default async function Page({ params }: Props) {  
+export default async function Page({ params }: Props) {
   const { id } = await params;
   const data = await getonedata(id);
 
@@ -20,12 +21,17 @@ export default async function Page({ params }: Props) {
     return <div>Blog not found</div>;
   }
 
-  const html = generateHTML(data.Content, [StarterKit]);
+  const html = generateHTML(data.Content, [
+    StarterKit,
+    TextAlign.configure({
+      types: ["heading", "paragraph"],
+    }),
+  ]);
 
   return (
     <div className="w-screen flex overflow-x-hidden flex-col">
       <Navbar />
-      <main className="gap-1" >
+      <main className="gap-1">
         <Image
           src={data?.Thumbnail}
           alt=""
@@ -41,5 +47,5 @@ export default async function Page({ params }: Props) {
         <div className="px-2 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
     </div>
-  )
+  );
 }

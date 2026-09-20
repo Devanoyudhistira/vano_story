@@ -2,15 +2,21 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@layer base {
+
   h1 {
-    @apply text-lg text-red-500 font-bold;
+    @apply text-2xl text-red-500 font-bold;
   }  
   h2{
+    @apply text-xl font-semibold my-1.5 
+  }
+  h3{
     @apply text-lg font-semibold my-1.5 
   }
   ul{
     @apply ml-5 list-disc text-red-500 font-bold 
+  }
+  ol{
+    @apply ml-5 list-decimal text-red-500 font-bold 
   }
   strong{
     @apply text-red-500
@@ -18,4 +24,4 @@
   blockquote{
     @apply bg-red-50 px-2 py-2 text-red-600 border-t-2 border-red-700 my-4 font-semibold italic
   }
-}
+

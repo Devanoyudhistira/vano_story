@@ -18,3 +18,14 @@ export async function create(objectdata: object) {
 
     console.log(insertdata.acknowledged);      
 }
+const blogs = client.db("devastory").collection("blogs");
+// await users.createIndex({ email: 1 }, { unique: true });
+
+export async function createblog(objectdata: object) {  
+    await client.connect();
+
+    const insertdata = await blogs.insertOne(objectdata);
+
+    console.log(insertdata.acknowledged);      
+}
+
