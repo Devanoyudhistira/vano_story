@@ -8,6 +8,7 @@ import truncate from "@/lib/truncat";
 import getalldata from "@/models/getalldata";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   type Blog = {

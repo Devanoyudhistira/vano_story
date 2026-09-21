@@ -8,9 +8,11 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { getalluser } from "@/models/getalldata";
 import { Circle, Search } from "lucide-react";
 
-export default function Author() {
+export default async function Author() {
+  const datauser = await getalluser()
   return (
     <main className="overflow-hidden pb-3">
       <header className="py-4 mt-2 px-3 flex flex-col gap-1">
@@ -24,9 +26,8 @@ export default function Author() {
           Author and writer discovery{" "}
         </h1>
         <p className="text-md font-semibold text-gray-400">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio
-          quisquam molestias architecto optio natus omnis. Aliquam distinctio
-          inventore eligendi itaque.
+          Explore a community of writers and discover the people behind the stories. Browse author profiles, learn about their interests, and find new perspectives, stories, and ideas to read.
+
         </p>
         <InputGroup className="rounded-r-2xl overflow-hidden" >
           <InputGroupAddon>
@@ -38,22 +39,12 @@ export default function Author() {
             {" "}
             <Search className="size-5" />{" "}
           </InputGroupButton>
-        </InputGroup>
-        <div className="flex items-center gap-3">
-          Sort by : <Sortselect />
-        </div>
-        <div className="flex flex-row gap-2 overflow-x-scroll mt-3 scrollbar-none flex-nowrap">
-          <Filtertoggle />
-          <Filtertoggle />
-          <Filtertoggle />
-          <Filtertoggle />
-        </div>
+        </InputGroup>        
       </header>
       <div className="flex flex-col gap-3 mt-4 items-center px-2">
-        <Authorcomponent />
-        <Authorcomponent />
-        <Authorcomponent />
-        <Authorcomponent />
+        {datauser.map(e => 
+        <Authorcomponent username={e.Name} topic={e.Category} bio={e.Description} id={e._id.toString()} key={e._id.toString()} />
+        )}
       </div>
     </main>
   );

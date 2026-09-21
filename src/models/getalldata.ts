@@ -32,12 +32,31 @@ type Blog = {
   };
 };
 
+type User = {
+  _id: ObjectId;
+  Email: string;
+  Name: string;
+  Profile_image: string;
+  Description: string;
+  Category: string[];
+};
+
 async function getalldata(pagenumber: string) {
     console.log(pagenumber)
     await client.connect();
     const connection = await client
       .db("devastory")
       .collection<Blog>("blogs")
+      .find({})     
+      .sort({ Date_created: -1 })
+      .toArray();
+    return connection; 
+}
+export async function getalluser() {    
+    await client.connect();
+    const connection = await client
+      .db("devastory")
+      .collection<User>("users")
       .find({})     
       .sort({ Date_created: -1 })
       .toArray();

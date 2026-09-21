@@ -49,12 +49,12 @@ async function getdata(pagenumber: string) {
     .toArray();
   return connection;
 }
-export async function getdatafromuser(pagenumber: string,userid:string) {
+export async function getdatafromuser(pagenumber: string, userid: string) {
   const page = pagenumber;
   const limit = 6;
   const skip = (Number(page) - 1) * limit;
 
-  await client.connect();  
+  await client.connect();
   const connection = await client
     .db("devastory")
     .collection<Blog>("blogs")
@@ -72,6 +72,19 @@ export async function getcountdata(): Promise<number> {
   console.log(Math.ceil((await collection.countDocuments({})) / 6));
 
   return collection.countDocuments({});
+}
+export async function getcountdatafromuser(userid: string): Promise<number> {
+  await client.connect();
+
+  const collection = client.db("devastory").collection("blogs");
+
+  const count = await collection.countDocuments({
+    Author: userid,
+  });
+
+  console.log(Math.ceil(count / 6));
+
+  return count;
 }
 
 export default getdata;
