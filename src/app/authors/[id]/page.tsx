@@ -1,21 +1,24 @@
 import Navbar from "@/components/navbar";
-import getuser from "@/models/profile";
-import Image from "next/image";
-import { Userprops } from "@/models/getonedata";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Pen, Plus } from "lucide-react";
-import { getdatafromuser } from "@/models/getdata";
 import Newscardpopular from "@/components/news-card-popular";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import { getdatafromuser } from "@/models/getdata";
+import { getanotheruser } from "@/models/profile";
+import Image from "next/image";
 
-export default async function Profile() {
-  const userdata: Userprops | boolean | null = await getuser();
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function Page({ params }: Props) {
+  const { id } = await params;
+  const userdata = await getanotheruser(id);
+  
+  const storyauthor = await getdatafromuser("1", userdata ? userdata._id.toString() : "");
   if (!userdata) {
-    redirect("/sign");
+    return <div>nothing</div>;
   }
-  const storyauthor = await getdatafromuser("1", userdata._id.toString());
   return (
     <main className="h-screen w-screen flex flex-col gap-1">
       <Navbar />
@@ -45,19 +48,7 @@ export default async function Profile() {
         <p className="text-sm text-red-500 mb-6 font-bold px-5 w-full flex items-center justify-center ">
           {" "}
           {userdata.Description}{" "}
-        </p>
-        <div className="flex gap-2 items-center">
-          <Link href={"/profile/createpost"}>
-            <Button size={"sm"} variant={"destructive"}>
-              {" "}
-              <Plus /> Create new post{" "}
-            </Button>
-          </Link>
-          <Button size={"sm"} variant={"outline"}>
-            {" "}
-            <Pen /> Edit profile{" "}
-          </Button>
-        </div>
+        </p>       
         {/* <div className="bg-red-500 w-200 h-200" ></div> */}
         <div className="px-2 flex flex-col gap-3 pb-14">
           {storyauthor?.map((e) => (

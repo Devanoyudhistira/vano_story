@@ -42,25 +42,36 @@ type User = {
 };
 
 async function getalldata(pagenumber: string) {
-    console.log(pagenumber)
-    await client.connect();
-    const connection = await client
-      .db("devastory")
-      .collection<Blog>("blogs")
-      .find({})     
-      .sort({ Date_created: -1 })
-      .toArray();
-    return connection; 
+  console.log(pagenumber);
+  await client.connect();
+  const connection = await client
+    .db("devastory")
+    .collection<Blog>("blogs")
+    .find({})
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
 }
-export async function getalluser() {    
-    await client.connect();
-    const connection = await client
-      .db("devastory")
-      .collection<User>("users")
-      .find({})     
-      .sort({ Date_created: -1 })
-      .toArray();
-    return connection; 
+export async function getalluser() {
+  await client.connect();
+  const connection = await client
+    .db("devastory")
+    .collection<User>("users")
+    .find({})
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
+}
+export async function getalluserlimit() {
+  await client.connect();
+  const connection = await client
+    .db("devastory")
+    .collection<User>("users")
+    .find({})
+    .limit(4)
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
 }
 
 export default getalldata;

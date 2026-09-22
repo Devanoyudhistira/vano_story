@@ -31,7 +31,7 @@ export default async function Authorcomponent({username,bio,topic,id}:userprops)
       </div>
       <CardFooter className="flex items-center justify-between px-3 ">
         <Link
-          href={`/${id}`}
+          href={`authors/${id}`}
           className="text-red-500 text-xs mt-2 font-semibold flex items-center gap-2 capitalize"
         >
           {" "}

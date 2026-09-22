@@ -5,7 +5,7 @@ import Navbar from "@/components/navbar";
 import Newscard from "@/components/news-card";
 import Newscardpopular from "@/components/news-card-popular";
 import truncate from "@/lib/truncat";
-import getalldata from "@/models/getalldata";
+import getalldata, { getalluserlimit } from "@/models/getalldata";
 import { Circle } from "lucide-react";
 import { ObjectId } from "mongodb";
 export const dynamic = "force-dynamic";
@@ -34,6 +34,7 @@ export default async function Home() {
     };
   };
 
+  const user = await getalluserlimit()
   const alldata: Blog[] = await getalldata("1");
 
   console.log(alldata);
@@ -63,6 +64,7 @@ export default async function Home() {
           </div>{" "}
           {alldata[0] && (
             <Newscard
+              id={alldata[0]._id.toString()}
               image={alldata[0]?.Thumbnail}
               author={alldata[0]?.Author}
               category={alldata[0]?.Topic_genre}
@@ -72,6 +74,7 @@ export default async function Home() {
           )}
           {alldata[1] && (
             <Newscard
+              id={alldata[1]._id.toString()}
               image={alldata[1]?.Thumbnail}
               author={alldata[1]?.Author}
               category={alldata[1]?.Topic_genre}
@@ -81,6 +84,7 @@ export default async function Home() {
           )}
           {alldata[2] && (
             <Newscard
+              id={alldata[2]._id.toString()}
               image={alldata[2]?.Thumbnail}
               author={alldata[2]?.Author}
               category={alldata[2]?.Topic_genre}
@@ -111,6 +115,7 @@ export default async function Home() {
           )}
           {alldata[2] && (
             <Newscard
+              id={alldata[2]._id.toString()}
               image={alldata[2]?.Thumbnail}
               author={alldata[2]?.Author}
               category={alldata[2]?.Topic_genre}
@@ -120,6 +125,7 @@ export default async function Home() {
           )}
           {alldata[3] && (
             <Newscard
+              id={alldata[2]._id.toString()}
               image={alldata[3]?.Thumbnail}
               author={alldata[3]?.Author}
               category={alldata[3]?.Topic_genre}
@@ -133,10 +139,9 @@ export default async function Home() {
             top creator
           </h1>
           <div className="flex flex-col px-1 gap-1.5 w-full ">
-            <Authorcard />
-            <Authorcard />
-            <Authorcard />
-            <Authorcard />
+            {user.map(e => 
+            <Authorcard id={e._id.toString()} username={e.Name} key={e._id.toString()} topic={e.Category} />
+            )}            
           </div>
         </div>
       </main>
