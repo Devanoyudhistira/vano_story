@@ -45,7 +45,7 @@ export default function Page() {
   return (
     <main className="w-full  ">
       <Navbartexteditor postbutton={postcontent} />
-      <div className="px-2 pt-2 flex flex-col gap-3 ">
+      <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
         <Thumbnailimageinput
           setimage={setimage}
           className="w-full self-center border-2 border-dashed  h-50 rounded-sm"
