@@ -1,5 +1,5 @@
 "use server";
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 const uri: string = process.env.NEXT_MONGO_PASSWORD!;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -26,6 +26,16 @@ export async function createblog(objectdata: object) {
 
     const insertdata = await blogs.insertOne(objectdata);
 
-    console.log(insertdata.acknowledged);      
+    return insertdata.acknowledged      
+}
+
+export async function deleteblog(id: string): Promise<boolean> {
+  await client.connect();
+
+  const result = await blogs.deleteOne({
+    _id: new ObjectId(id),
+  });
+
+  return result.deletedCount === 1;
 }
 

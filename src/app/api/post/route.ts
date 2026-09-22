@@ -1,16 +1,17 @@
 "use server";
 
-import { createblog } from "@/models/createdata";
+import { createblog, deleteblog } from "@/models/createdata";
 import { Userprops } from "@/models/getonedata";
 import getuser from "@/models/profile";
 import supabaseforimage from "@/supabase/supabaseforimage";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const formData = await request.formData();
   const userdata: Userprops | boolean | null = await getuser();
   const title = formData.get("title");
-  const topic = formData.get("topic");  
+  const topic = formData.get("topic");
   const thumbnail = formData.get("thumbnail");
   const contentString = formData.get("content");
 
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
   }
   const content = JSON.parse(contentString);
   await supabaseforimage.upload(`blog/${finalname}`, thumbnail);
-  await createblog({
+ const createresult = await createblog({
     Title: title,
     Content: content,
     Thumbnail: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/blog/${finalname}`,
@@ -44,10 +45,22 @@ export async function POST(request: Request) {
     Like: 0,
     Language: "english",
     View_count: 123,
-  });
+  });  
 
   return NextResponse.json({
     message: formData,
-    success: true,
+    success:createresult ,
+  });
+}
+
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  const { id } = body;
+  console.log(id);
+  const deleteresult = await deleteblog(id);
+  revalidatePath("/profile");
+  revalidatePath("/news");
+  return NextResponse.json({
+    success: deleteresult,
   });
 }

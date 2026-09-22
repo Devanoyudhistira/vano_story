@@ -1,11 +1,18 @@
 import { cn } from "@/lib/utils";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import truncate from "@/lib/truncat";
-import {getusername } from "@/models/profile";
+import getuser, { getusername } from "@/models/profile";
+import Dropdownprofile from "./dropdown-profile";
 
 type post = {
   classname?: string;
@@ -15,7 +22,7 @@ type post = {
   image: string;
   description: string;
   date: string;
-  id:string
+  id: string;
 };
 
 export default async function Newscardpopular({
@@ -26,12 +33,15 @@ export default async function Newscardpopular({
   image,
   description,
   date,
-  id
+  id,
 }: post) {
-   
+  const user = await getuser();
+  const isowner = user ? user._id.toString() === author : false;
+  console.log(author);
+
   return (
-    <Link href={`/news/${id}`} >
-      <Card className="pt-0  gap-2">
+    <Card className="pt-0  gap-2">
+      <Link href={`/news/${id}`}>
         <div
           className={cn(
             "w-full h-60 bg-green-400 rounded-md relative ",
@@ -61,8 +71,13 @@ export default async function Newscardpopular({
           </span>
         </CardHeader>
         <CardTitle className="text-xl px-2 font-semibold">{title}</CardTitle>
-        <CardDescription className="px-3">{truncate(description,60)  }</CardDescription>
-      </Card>
-    </Link>
+        <CardDescription className="px-3">
+          {truncate(description, 60)}
+        </CardDescription>
+      </Link>
+      {isowner && <CardFooter className="" >
+        <Dropdownprofile id={id} />
+      </CardFooter>}
+    </Card>
   );
 }

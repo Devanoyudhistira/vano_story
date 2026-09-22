@@ -1,6 +1,4 @@
 import Authorcomponent from "@/components/author_card";
-import Filtertoggle from "@/components/filter-toggle";
-import Sortselect from "@/components/sort-select";
 import { Badge } from "@/components/ui/badge";
 import {
   InputGroup,

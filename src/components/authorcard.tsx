@@ -11,7 +11,7 @@ type userprops = {
 export default async function Authorcard({ username, topic, id }: userprops) {
   const post = getcountdatafromuser(id)
   return (
-    <Link href={"author/"+id} className="py-2" >
+    <Link href={"authors/"+id} className="py-2" >
       <Card className="px-1 py-1 w-full gap-2 shrink-0 flex-row items-center justify-between">
         <div className="flex flex-row items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-red-500"></div>
