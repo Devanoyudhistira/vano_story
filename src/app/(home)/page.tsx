@@ -34,7 +34,7 @@ export default async function Home() {
     };
   };
 
-  const user = await getalluserlimit()
+  const user = await getalluserlimit();
   const alldata: Blog[] = await getalldata("1");
 
   console.log(alldata);
@@ -42,106 +42,128 @@ export default async function Home() {
     <div>
       <Navbar />
       <main className="flex  flex-col px-1 gap-3 py-2 items-center">
-        {alldata[0] && (
-          <Newscardpopular
-            image={alldata[0]?.Thumbnail}
-            author={alldata[0]?.Author}
-            genre={alldata[0]?.Topic_genre}
-            title={alldata[0]?.Title}
-            date={alldata[0]?.Date_created}
-            description={
-              alldata[0]?.Content?.content
-                ?.map((e) => e?.content?.[0]?.text ?? "")
-                .join(" ") ?? ""
-            }
-            id={alldata[0]._id.toString()}
-          />
-        )}
-        <div className="flex flex-col gap-2 px-1 py-1">
-          <div className="flex flex-row gap-2 items-center">
-            <h1 className="text-xl font-bold capitalize">Latest news</h1>
-            <Circle className="animate-pulse size-3 fill-red-500 text-red-500" />
-          </div>{" "}
+        <div className="flex flex-col lg:flex-row lg:mt-2 lg:gap-2">
           {alldata[0] && (
-            <Newscard
-              id={alldata[0]._id.toString()}
+            <Newscardpopular
               image={alldata[0]?.Thumbnail}
               author={alldata[0]?.Author}
-              category={alldata[0]?.Topic_genre}
+              genre={alldata[0]?.Topic_genre}
               title={alldata[0]?.Title}
               date={alldata[0]?.Date_created}
+              description={
+                alldata[0]?.Content?.content
+                  ?.map((e) => e?.content?.[0]?.text ?? "")
+                  .join(" ") ?? ""
+              }
+              id={alldata[0]._id.toString()}
             />
           )}
-          {alldata[1] && (
-            <Newscard
-              id={alldata[1]._id.toString()}
-              image={alldata[1]?.Thumbnail}
-              author={alldata[1]?.Author}
-              category={alldata[1]?.Topic_genre}
-              title={alldata[1]?.Title}
-              date={alldata[1]?.Date_created}
-            />
-          )}
-          {alldata[2] && (
-            <Newscard
-              id={alldata[2]._id.toString()}
-              image={alldata[2]?.Thumbnail}
-              author={alldata[2]?.Author}
-              category={alldata[2]?.Topic_genre}
-              title={alldata[2]?.Title}
-              date={alldata[2]?.Date_created}
-            />
-          )}
+          <div className="flex flex-col gap-2 px-1 py-1">
+            <div className="flex flex-row gap-2 items-center">
+              <h1 className="text-xl font-bold capitalize">Latest news</h1>
+              <Circle className="animate-pulse size-3 fill-red-500 text-red-500" />
+            </div>{" "}
+            {alldata[0] && (
+              <Newscard
+                id={alldata[0]._id.toString()}
+                image={alldata[0]?.Thumbnail}
+                author={alldata[0]?.Author}
+                category={alldata[0]?.Topic_genre}
+                title={alldata[0]?.Title}
+                date={alldata[0]?.Date_created}
+              />
+            )}
+            {alldata[1] && (
+              <Newscard
+                id={alldata[1]._id.toString()}
+                image={alldata[1]?.Thumbnail}
+                author={alldata[1]?.Author}
+                category={alldata[1]?.Topic_genre}
+                title={alldata[1]?.Title}
+                date={alldata[1]?.Date_created}
+              />
+            )}
+            {alldata[2] && (
+              <Newscard
+                id={alldata[2]._id.toString()}
+                image={alldata[2]?.Thumbnail}
+                author={alldata[2]?.Author}
+                category={alldata[2]?.Topic_genre}
+                title={alldata[2]?.Title}
+                date={alldata[2]?.Date_created}
+              />
+            )}
+          </div>
         </div>
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-xl font-bold text-red-500 self-start capitalize">
             {" "}
             Must read{" "}
           </h1>
-          {alldata[0] && (
-            <Mustread
-              description={truncate(
-                alldata[10]?.Content?.content
-                  ?.map((e) => e?.content?.[0]?.text ?? "")
-                  .join(" ") ?? "",
-                100,
+          <div className="flex flex-col lg:gap-3 lg:flex-row-reverse " > 
+            {alldata[0] && (
+              <Mustread
+                description={truncate(
+                  alldata[0]?.Content?.content
+                    ?.map((e) => e?.content?.[0]?.text ?? "")
+                    .join(" ") ?? "",
+                  100,
+                )}
+                className="lg:h-83"
+                image={alldata[0]?.Thumbnail}
+                author={alldata[0]?.Author}
+                category={alldata[0]?.Topic_genre}
+                title={alldata[0]?.Title}
+                date={alldata[0]?.Date_created}
+              />
+            )}
+            <div className="flex-col gap-2 flex">
+              {alldata[0] && (
+                <Newscard
+                  id={alldata[0]._id.toString()}
+                  image={alldata[0]?.Thumbnail}
+                  author={alldata[0]?.Author}
+                  category={alldata[0]?.Topic_genre}
+                  title={alldata[0]?.Title}
+                  date={alldata[0]?.Date_created}
+                />
+              )}            
+              {alldata[2] && (
+                <Newscard
+                  id={alldata[2]._id.toString()}
+                  image={alldata[2]?.Thumbnail}
+                  author={alldata[2]?.Author}
+                  category={alldata[2]?.Topic_genre}
+                  title={alldata[2]?.Title}
+                  date={alldata[2]?.Date_created}
+                />
               )}
-              image={alldata[0]?.Thumbnail}
-              author={alldata[0]?.Author}
-              category={alldata[0]?.Topic_genre}
-              title={alldata[0]?.Title}
-              date={alldata[0]?.Date_created}
-            />
-          )}
-          {alldata[2] && (
-            <Newscard
-              id={alldata[2]._id.toString()}
-              image={alldata[2]?.Thumbnail}
-              author={alldata[2]?.Author}
-              category={alldata[2]?.Topic_genre}
-              title={alldata[2]?.Title}
-              date={alldata[2]?.Date_created}
-            />
-          )}
-          {alldata[3] && (
-            <Newscard
-              id={alldata[2]._id.toString()}
-              image={alldata[3]?.Thumbnail}
-              author={alldata[3]?.Author}
-              category={alldata[3]?.Topic_genre}
-              title={alldata[3]?.Title}
-              date={alldata[3]?.Date_created}
-            />
-          )}
+              {alldata[3] && (
+                <Newscard
+                  id={alldata[2]._id.toString()}
+                  image={alldata[3]?.Thumbnail}
+                  author={alldata[3]?.Author}
+                  category={alldata[3]?.Topic_genre}
+                  title={alldata[3]?.Title}
+                  date={alldata[3]?.Date_created}
+                />
+              )}
+            </div>
+          </div>
         </div>
         <div className="flex flex-col w-full px-1 items-center overflow-x-auto scrollbar-hide gap-1">
           <h1 className="text-xl font-bold self-start capitalize">
             top creator
           </h1>
           <div className="flex flex-col px-1 gap-1.5 w-full ">
-            {user.map(e => 
-            <Authorcard id={e._id.toString()} username={e.Name} key={e._id.toString()} topic={e.Category} />
-            )}            
+            {user.map((e) => (
+              <Authorcard
+                id={e._id.toString()}
+                username={e.Name}
+                key={e._id.toString()}
+                topic={e.Category}
+              />
+            ))}
           </div>
         </div>
       </main>

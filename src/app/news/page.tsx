@@ -54,8 +54,8 @@ export default async function News({ searchParams }: Props) {
           <Circle className="fill-green-500 text-green-400 animate-pulse " />{" "}
           all news total <Dot className="animate-pulse" /> {datacount}{" "}
         </Badge>
-        <div className="flex flex-col gap-2 px-1 border-t-2 pb-2 border-border mt-3">
-          <h1 className="text-3xl font-bold capitalize flex items-center gap-1 mb-3 mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 px-1 border-t-2 pb-2 border-border mt-3">
+          <h1 className="text-3xl  lg:col-span-4 font-bold capitalize flex items-center gap-1 mb-3 mt-2">
             {" "}
             Latest News{" "}
             <Circle className="fill-red-500 text-red-500 size-3 animate-pulse" />{" "}
