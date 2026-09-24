@@ -43,9 +43,9 @@ export default async function Page() {
           </CardDescription>
         </div>
         <CardContent className="m-0  gap-2">
-          <Featurelist />
-          <Featurelist />
-          <Featurelist />
+          <Featurelist text="An ad-free space to explore news and gain new knowledge about our history" />
+          <Featurelist text="Save and like stories that you want to remember" />
+          <Featurelist text="Join a community of readers who enjoy discovering and discussing new stories" />
         </CardContent>
         <Signupcard />
       </Card>
