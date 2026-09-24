@@ -1,13 +1,13 @@
 import Authorcomponent from "@/components/author_card";
 import { Badge } from "@/components/ui/badge";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+// import {
+//   InputGroup,
+//   InputGroupAddon,
+//   InputGroupButton,
+//   InputGroupInput,
+// } from "@/components/ui/input-group";
 import { getalluser } from "@/models/getalldata";
-import { Circle, Search } from "lucide-react";
+import { Circle } from "lucide-react";
 
 export default async function Author() {
   const datauser = await getalluser()
@@ -27,7 +27,7 @@ export default async function Author() {
           Explore a community of writers and discover the people behind the stories. Browse author profiles, learn about their interests, and find new perspectives, stories, and ideas to read.
 
         </p>
-        <InputGroup className="rounded-r-2xl overflow-hidden" >
+        {/* <InputGroup className="rounded-r-2xl overflow-hidden" >
           <InputGroupAddon>
             {" "}
             <Search />{" "}
@@ -37,7 +37,7 @@ export default async function Author() {
             {" "}
             <Search className="size-5" />{" "}
           </InputGroupButton>
-        </InputGroup>        
+        </InputGroup>         */}
       </header>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">
         {datauser.map(e => 
