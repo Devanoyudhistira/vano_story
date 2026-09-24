@@ -1,6 +1,8 @@
 "use client";
 
-import { Createprofile, CreateProfileState, updateprofile } from "@/actions/profile";
+import {  
+  CreateProfileState,  
+} from "@/actions/profile";
 import Profilecreation from "./profile-creation";
 import Textinput from "./text-input";
 import Topicoption from "./topic-option";
@@ -9,25 +11,32 @@ import { useActionState, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { Spinner } from "./ui/spinner";
 
+
 type ProfileAction = (
   topic: string[],
   prev: CreateProfileState,
-  formData: FormData
+  formData: FormData,
 ) => Promise<CreateProfileState>;
 
 type profileprops = {
-  name?:string,
-  bio?:string,
-  image?:string,
-  usertopic?:string[],
-  profileaction:ProfileAction
-}
+  name?: string;
+  bio?: string;
+  image?: string;
+  usertopic?: string[];
+  profileaction: ProfileAction;
+};
 
-export default function Profileform({name,bio,image,usertopic,profileaction}:profileprops) {
+export default function Profileform({
+  name,
+  bio,
+  image,
+  usertopic,
+  profileaction,
+}: profileprops) {
   const [topic, settopic] = useState<Array<string>>(usertopic ?? []);
-  const [username,setusername] = useState<string>(name ?? "" )
-  const [userbio,setuserbio] = useState<string>(bio ?? "")
-  const [profileimage,setprofileimage] = useState<string>(image ?? "")
+  const [username, setusername] = useState<string>(name ?? "");
+  const [userbio, setuserbio] = useState<string>(bio ?? "");
+  const [profileimage] = useState<string>(image ?? "");
   const [state, action, pending] = useActionState<CreateProfileState, FormData>(
     profileaction.bind(null, topic),
     null,
@@ -37,29 +46,38 @@ export default function Profileform({name,bio,image,usertopic,profileaction}:pro
       settopic((prev) => [...prev, newtopic]);
     }
   }
-  function changename(text:string):void{
-    setusername(text)
+  function changename(text: string): void {
+    setusername(text);
   }
-  function changebio(text:string):void{
-    setuserbio(text)
+  function changebio(text: string): void {
+    setuserbio(text);
   }
   function removetopic() {
     settopic([]);
-  }  
+  }
   useEffect(() => {
     if (state?.success) {
       redirect("/profile");
     }
   });
   return (
-    <form action={action} className="gap-4 flex flex-col items-center px-3">
-      <Profilecreation />
-      <Textinput changename={changename} changebio={changebio} oribio={userbio} oriname={username} />
-      <Topicoption
-        removetopic={removetopic}
-        topicarray={topic}
-        addtopic={addtopic}
-      />
+    <form action={action} className="gap-4 flex flex-col items-center px-3">      
+      <div className="flex flex-col lg:flex-row lg:gap-4 lg:px-4">
+        <Profilecreation oriimage={profileimage} />
+        <div className="flex flex-col gap-2">
+          <Textinput
+            changename={changename}
+            changebio={changebio}
+            oribio={userbio}
+            oriname={username}
+          />
+          <Topicoption
+            removetopic={removetopic}
+            topicarray={topic}
+            addtopic={addtopic}
+          />
+        </div>
+      </div>
       <Button
         type="submit"
         variant={"default"}
@@ -68,9 +86,8 @@ export default function Profileform({name,bio,image,usertopic,profileaction}:pro
         disabled={pending}
       >
         {" "}
-       { pending ? "loading" : "create profile"}
-       {pending && <Spinner/>}
-       {" "}
+        {pending ? "loading" : "create profile"}
+        {pending && <Spinner />}{" "}
       </Button>
     </form>
   );

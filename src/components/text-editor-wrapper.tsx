@@ -11,11 +11,23 @@ import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
 import { redirect } from "next/navigation";
 
-export default function Page() {
-  const [post, setPost] = useState<JSONContent | string>("");
-  const [image, setimage] = useState<File | null>(null);
-  const [title, settitle] = useState("");
-  const [topic, settopic] = useState<Array<string>>([]);
+type editorprops = {
+  oripost?: JSONContent | string;
+  orititle?: string;
+  oritopic?: string;
+  orithumbnail?: string;
+};
+
+export default function Texteditor({
+  oripost,
+  orititle,
+  oritopic,
+  orithumbnail,
+}: editorprops) {
+  const [post, setPost] = useState<JSONContent | string>(oripost ?? "");
+  const [image, setimage] = useState<File | null>(null);  
+  const [title, settitle] = useState(orititle ?? "");
+  const [topic, settopic] = useState<Array<string>>(oritopic ? [oritopic] : []);
   function addtopic(newtopic: string): void {
     if (!topic.includes(newtopic) && topic.length !== 1) {
       settopic((prev) => [...prev, newtopic]);
@@ -24,6 +36,7 @@ export default function Page() {
   function removetopic() {
     settopic([]);
   }
+  console.log(topic);
   const formdata = new FormData();
   if (image) {
     formdata.append("thumbnail", image);
@@ -35,6 +48,7 @@ export default function Page() {
   const onChange = (content: JSONContent | string) => {
     setPost(content);
   };
+  console.log(topic);
   const postcontent = async () => {
     await fetch("http://localhost:3003/api/post", {
       method: "POST",
@@ -47,13 +61,15 @@ export default function Page() {
       <Navbartexteditor postbutton={postcontent} />
       <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
         <Thumbnailimageinput
+          oriimage={orithumbnail}
           setimage={setimage}
-          className="w-full lg:w-full lg:max-h-full lg:min-h-70 self-center border-2 border-dashed  h-50 rounded-sm"
+          className="w-full lg:w-full lg:h-full self-center border-2 border-dashed  h-50 rounded-sm"
         />
       </div>
       <Field className="px-2 self-center w-[90vw]">
         <Textarea
           onChange={(e) => settitle(e.currentTarget.value)}
+          value={title}          
           placeholder="write the title here"
           className="text-4xl lg:text-7xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
         />

@@ -20,7 +20,7 @@ export default async function Page() {
       <nav className="px-2 py-1 flex items-center gap-2">
         <h1 className="text-2xl font-bold after:inline-block after:w-2 after:h-2 after:bg-red-500 after:bottom-1 after:rounded-full after:-right-1 after:absolute relative w-max">
           {" "}
-          DevaStory{" "}
+          Vanostory{" "}
         </h1>
         <Badge className="font-bold rounded-sm text-xs"> Reader </Badge>
       </nav>
@@ -39,7 +39,7 @@ export default async function Page() {
             {" "}
             read a countless story about sport,politic,movie and many other wide
             your knowledge at{" "}
-            <span className="font-serif text-red-50">Devastory</span>{" "}
+            <span className="font-serif text-red-50">Vanostory</span>{" "}
           </CardDescription>
         </div>
         <CardContent className="m-0  gap-2">

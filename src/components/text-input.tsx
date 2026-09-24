@@ -5,8 +5,8 @@ import { Textarea } from "./ui/textarea";
 type textinput = {
   oriname?: string;
   oribio?: string;
-  changename?;
-  changebio?;
+    changename: (text: string) => void;
+  changebio: (text: string) => void;
 };
 export default function Textinput({ oribio, oriname,changename,changebio }: textinput) {
   return (

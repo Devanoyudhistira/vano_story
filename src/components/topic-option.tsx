@@ -51,7 +51,7 @@ export default function Topicoption({
             onPressedChange={() => addtopic(topic)}
             className={cn(
               "w-max px-2 ",
-              topicarray.includes(topic) &&
+              topicarray.some((item) => item.toLowerCase() === topic.toLowerCase())&&
                 "bg-red-500! text-white border-white!",
             )}
             key={topic}
@@ -60,7 +60,7 @@ export default function Topicoption({
           </Toggle>
         ))}
       </CardContent>
-      {topicarray.length >= 3 && (
+      {topicarray.length >=Number(min) && (
         <Button
           onClick={() => removetopic()}
           className={"w-max"}

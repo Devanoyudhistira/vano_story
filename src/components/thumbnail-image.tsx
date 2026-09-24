@@ -11,10 +11,11 @@ import { cn } from "@/lib/utils";
 type Props = {
   className?: string;
   setimage: React.Dispatch<React.SetStateAction<File | null>>;
+  oriimage?:string
 };
 
-export default function Thumbnailimageinput({ className, setimage }: Props) {
-  const [change, setchange] = useState<string | null>();
+export default function Thumbnailimageinput({ className,oriimage, setimage }: Props) {
+  const [change, setchange] = useState<string | null>(oriimage ?? null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
