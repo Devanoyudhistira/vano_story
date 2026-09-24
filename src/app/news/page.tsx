@@ -1,10 +1,11 @@
 import Navbar from "@/components/navbar";
 import Paginationnumber from "@/components/pagination-number";
 import { Badge } from "@/components/ui/badge";
-import { Circle, Dot } from "lucide-react";
+import { Circle, Dot, Search } from "lucide-react";
 import Newscardpopular from "@/components/news-card-popular";
 import { ObjectId } from "mongodb";
-import getdata, { getcountdata } from "@/models/getdata";
+import getdata, { getcountdata, getdatabytitle } from "@/models/getdata";
+import Searchinput from "@/components/search-input";
 
 
 type Blog = {
@@ -32,14 +33,20 @@ type Blog = {
 type Props = {
   searchParams: Promise<{
     page: string;
+    search:string
   }>;
 };
 
 export default async function News({ searchParams }: Props) {
-  const { page } = await searchParams;
+  const { page,search } = await searchParams;
+  console.log(search)
   const datacount = await getcountdata();
+  let alldata: Blog[] = await getdata(page);
 
-  const alldata: Blog[] = await getdata(page);
+  if(search){
+    alldata = await getdatabytitle(page,search)
+  }
+
   return (
     <div>
       <Navbar />
@@ -60,6 +67,7 @@ export default async function News({ searchParams }: Props) {
             Latest News{" "}
             <Circle className="fill-red-500 text-red-500 size-3 animate-pulse" />{" "}
           </h1>
+          <Searchinput/>          
           {alldata.map((e) => (
             <Newscardpopular
               id={e._id.toString()}

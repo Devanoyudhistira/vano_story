@@ -49,6 +49,30 @@ async function getdata(pagenumber: string) {
     .toArray();
   return connection;
 }
+export async function getdatabytitle(pagenumber: string, search: string) {
+  const page = Number(pagenumber);
+  const limit = 6;
+  const skip = (page - 1) * limit;
+
+  await client.connect();
+
+  const connection = await client
+    .db("devastory")
+    .collection<Blog>("blogs")
+    .find({
+      Title: {
+        $regex: search,
+        $options: "i",
+      },
+    })
+    .sort({ Date_created: -1 })
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+
+  return connection;
+}
+
 export async function getdatafromuser(pagenumber: string, userid: string) {
   const page = pagenumber;
   const limit = 6;
