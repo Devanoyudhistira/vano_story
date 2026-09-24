@@ -1,6 +1,6 @@
 "use client";
 
-import { Createprofile, CreateProfileState } from "@/actions/profile";
+import { Createprofile, CreateProfileState, updateprofile } from "@/actions/profile";
 import Profilecreation from "./profile-creation";
 import Textinput from "./text-input";
 import Topicoption from "./topic-option";
@@ -9,10 +9,27 @@ import { useActionState, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { Spinner } from "./ui/spinner";
 
-export default function Profileform() {
-  const [topic, settopic] = useState<Array<string>>([]);
+type ProfileAction = (
+  topic: string[],
+  prev: CreateProfileState,
+  formData: FormData
+) => Promise<CreateProfileState>;
+
+type profileprops = {
+  name?:string,
+  bio?:string,
+  image?:string,
+  usertopic?:string[],
+  profileaction:ProfileAction
+}
+
+export default function Profileform({name,bio,image,usertopic,profileaction}:profileprops) {
+  const [topic, settopic] = useState<Array<string>>(usertopic ?? []);
+  const [username,setusername] = useState<string>(name ?? "" )
+  const [userbio,setuserbio] = useState<string>(bio ?? "")
+  const [profileimage,setprofileimage] = useState<string>(image ?? "")
   const [state, action, pending] = useActionState<CreateProfileState, FormData>(
-    Createprofile.bind(null, topic),
+    profileaction.bind(null, topic),
     null,
   );
   function addtopic(newtopic: string): void {
@@ -20,10 +37,15 @@ export default function Profileform() {
       settopic((prev) => [...prev, newtopic]);
     }
   }
+  function changename(text:string):void{
+    setusername(text)
+  }
+  function changebio(text:string):void{
+    setuserbio(text)
+  }
   function removetopic() {
     settopic([]);
-  }
-  console.log(state);
+  }  
   useEffect(() => {
     if (state?.success) {
       redirect("/profile");
@@ -32,7 +54,7 @@ export default function Profileform() {
   return (
     <form action={action} className="gap-4 flex flex-col items-center px-3">
       <Profilecreation />
-      <Textinput />
+      <Textinput changename={changename} changebio={changebio} oribio={userbio} oriname={username} />
       <Topicoption
         removetopic={removetopic}
         topicarray={topic}

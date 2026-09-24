@@ -18,6 +18,19 @@ export async function create(objectdata: object) {
 
     console.log(insertdata.acknowledged);      
 }
+
+export async function update(id: string, objectdata: object) {
+    await client.connect();
+
+    const replacedata = await users.replaceOne(
+        { _id: new ObjectId(id) },
+        objectdata
+    );
+
+    console.log(replacedata.acknowledged);
+}
+
+
 const blogs = client.db("devastory").collection("blogs");
 // await users.createIndex({ email: 1 }, { unique: true });
 

@@ -53,10 +53,12 @@ export default async function Profile() {
               <Plus /> Create new post{" "}
             </Button>
           </Link>
+          <Link href={"/profile/update"} >
           <Button size={"sm"} variant={"outline"}>
             {" "}
             <Pen /> Edit profile{" "}
           </Button>
+          </Link>
         </div>
         {/* <div className="bg-red-500 w-200 h-200" ></div> */}
         <div className="px-2 grid grid-cols-1 lg:grid-cols-3 gap-3 pb-14">
