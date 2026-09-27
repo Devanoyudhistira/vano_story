@@ -13,5 +13,5 @@ export async function GET(request: { url: string | URL }) {
     await supabaseauth.auth.exchangeCodeForSession(code);
   }
 
-  return NextResponse.redirect(`http://localhost:3003/createprofile`);
+  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL!}/createprofile`);
 }
