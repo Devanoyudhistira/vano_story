@@ -36,7 +36,7 @@ export default function Page() {
     setPost(content);
   };
   const postcontent = async () => {
-    await fetch("http://localhost:3003/api/post", {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
       method: "POST",
       body: formdata,
     });
