@@ -76,8 +76,6 @@ export default function Profileform({
             topicarray={topic}
             addtopic={addtopic}
           />
-        </div>
-      </div>
       <Button
         type="submit"
         variant={"default"}
@@ -89,6 +87,8 @@ export default function Profileform({
         {pending ? "loading" : "create profile"}
         {pending && <Spinner />}{" "}
       </Button>
+        </div>
+      </div>
     </form>
   );
 }

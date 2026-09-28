@@ -25,8 +25,9 @@ export default function Searchinput() {
         handleSearch();
         e.preventDefault();
       }}
+      className="col-span-4"
     >
-      <InputGroup className="rounded-r-2xl col-span-4 overflow-hidden">
+      <InputGroup className="rounded-r-2xl  overflow-hidden">
         <InputGroupAddon>
           {" "}
           <Search />{" "}
