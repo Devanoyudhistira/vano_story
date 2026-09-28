@@ -7,6 +7,6 @@ export default function Featurelist({text}:{text:string}){
         <Badge className="p-1  rounded-full" variant={"destructive"} >
             <Check className="size-10" />
         </Badge>
-        <h1 className="font-light text-red-900" >{text} </h1>
+        <h1 className="font-light text-red-900 dark:text-red-500" >{text} </h1>
     </div>
 }
