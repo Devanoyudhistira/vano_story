@@ -85,7 +85,7 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
   ];
 
   return (
-    <div className="border top-0 sticky rounded-md p-1 mb-1 flex gap-2 flex-row flex-nowrap overflow-auto  space-x-2 z-50">
+    <div className="border top-12 sticky rounded-md p-1 mb-1 flex gap-2 flex-row flex-nowrap overflow-auto  space-x-2 z-1000 bg-background">
       {Options.map((option, index) => (
         <Toggle
           key={index}
