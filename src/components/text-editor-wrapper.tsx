@@ -9,7 +9,7 @@ import Navbartexteditor from "@/components/navbar-text-editor";
 import { Textarea } from "@/components/ui/textarea";
 import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
-import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 type editorprops = {
   oripost?: JSONContent | string;
@@ -18,14 +18,20 @@ type editorprops = {
   orithumbnail?: string;
 };
 
+type PostResponse = {
+  message: string;
+  success: boolean;
+};
+
 export default function Texteditor({
   oripost,
   orititle,
   oritopic,
   orithumbnail,
 }: editorprops) {
+  const router = useRouter();
   const [post, setPost] = useState<JSONContent | string>(oripost ?? "");
-  const [image, setimage] = useState<File | null>(null);  
+  const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState(orititle ?? "");
   const [topic, settopic] = useState<Array<string>>(oritopic ? [oritopic] : []);
   function addtopic(newtopic: string): void {
@@ -49,16 +55,35 @@ export default function Texteditor({
     setPost(content);
   };
   console.log(topic);
-  const postcontent = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_URL!}/api/post`, {
+  const postcontent = async (): Promise<PostResponse> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
       method: "POST",
       body: formdata,
     });
-    redirect("/profile");
+
+    const data: PostResponse = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
   };
   return (
     <main className="w-full  ">
-      <Navbartexteditor postbutton={postcontent} />
+      <Navbartexteditor
+        postbutton={() =>
+          toast.promise(postcontent(), {
+            position: "top-center",
+            loading: "Loading...",
+            success: (response) => {
+              router.push("/profile");
+              return response.message;
+            },
+            error: (err) => err.message,
+          })
+        }
+      />
       <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
         <Thumbnailimageinput
           oriimage={orithumbnail}
@@ -69,7 +94,7 @@ export default function Texteditor({
       <Field className="px-2 self-center w-[90vw]">
         <Textarea
           onChange={(e) => settitle(e.currentTarget.value)}
-          value={title}          
+          value={title}
           placeholder="write the title here"
           className="text-4xl lg:text-7xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
         />

@@ -14,9 +14,14 @@ export async function POST(request: Request) {
   const topic = formData.get("topic");
   const thumbnail = formData.get("thumbnail");
   const contentString = formData.get("content");
+  let message = "your post was success"
 
   if (!(thumbnail instanceof File)) {
-    throw new Error("Thumbnail must be a file");
+    message = "please add image for thumbnail"
+     return NextResponse.json({
+    message: message,
+    success: false,
+  });   
   }
 
   const extension = thumbnail.name.split(".").at(-1);
@@ -35,7 +40,7 @@ export async function POST(request: Request) {
   }
   const content = JSON.parse(contentString);
   await supabaseforimage.upload(`blog/${finalname}`, thumbnail);
-  const createresult = await createblog({
+  await createblog({
     Title: title,
     Content: content,
     Thumbnail: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/blog/${finalname}`,
@@ -48,8 +53,8 @@ export async function POST(request: Request) {
   });
 
   return NextResponse.json({
-    message: formData,
-    success: createresult,
+    message: message,
+    success: true,
   });
 }
 export async function UPDATE(request: Request) {

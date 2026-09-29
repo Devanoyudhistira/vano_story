@@ -9,13 +9,20 @@ import Navbartexteditor from "@/components/navbar-text-editor";
 import { Textarea } from "@/components/ui/textarea";
 import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
-import { redirect } from "next/navigation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+type PostResponse = {
+  message: string;
+  success:boolean
+};
 
 export default function Page() {
   const [post, setPost] = useState<JSONContent | string>("");
   const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState("");
   const [topic, settopic] = useState<Array<string>>([]);
+  const router = useRouter();
   function addtopic(newtopic: string): void {
     if (!topic.includes(newtopic) && topic.length !== 1) {
       settopic((prev) => [...prev, newtopic]);
@@ -35,16 +42,35 @@ export default function Page() {
   const onChange = (content: JSONContent | string) => {
     setPost(content);
   };
-  const postcontent = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
+  const postcontent = async (): Promise<PostResponse> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
       method: "POST",
       body: formdata,
     });
-    redirect("/profile");
+
+    const data: PostResponse = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
   };
   return (
     <main className="w-full  ">
-      <Navbartexteditor postbutton={postcontent} />
+      <Navbartexteditor
+        postbutton={() =>
+          toast.promise(postcontent(), {
+            position: "top-center",
+            loading: "Loading...",
+            success: (response) => {
+              router.push("/profile");
+              return response.message;
+            },
+            error: (err) => err.message,
+          })
+        }
+      />
       <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
         <Thumbnailimageinput
           setimage={setimage}
