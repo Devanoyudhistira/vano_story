@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type editorprops = {
   oripost?: JSONContent | string;
