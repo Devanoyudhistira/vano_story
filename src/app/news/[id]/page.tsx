@@ -3,9 +3,9 @@ import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "next/image";
 import "@/app/tiptap.css";
-import Navbar from "@/components/navbar";
 import Newsauthorbar from "@/components/news-author-bar";
 import TextAlign from "@tiptap/extension-text-align";
+import NewsNavbar from "@/components/news-navbar";
 
 type Props = {
   params: Promise<{
@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="w-screen flex overflow-x-hidden flex-col">
-      <Navbar />
+      <NewsNavbar/>
       <main className="gap-1">
         <Image
           src={data?.Thumbnail}
