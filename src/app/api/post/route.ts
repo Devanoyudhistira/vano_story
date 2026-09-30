@@ -123,10 +123,9 @@ export async function DELETE(request: Request) {
   const body = await request.json();
   const { id } = body;
   console.log(id);
-  const deleteresult = await deleteblog(id);
-  revalidatePath("/profile");
-  revalidatePath("/news");
+  await deleteblog(id);  
   return NextResponse.json({
-    success: deleteresult,
+    message:"delete success",
+    success: true,
   });
 }

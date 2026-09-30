@@ -7,12 +7,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
+
+type Deleteresponse = {
+  message: string;
+  success:boolean
+};
 
 export default function Dropdownprofile({ id }: { id: string }) {
-  const deleteevent = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
+  const router = useRouter()
+  const deleteevent = async (): Promise<Deleteresponse> => {
+   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +28,13 @@ export default function Dropdownprofile({ id }: { id: string }) {
         id: id,
       }),
     });
-    redirect("/profile");
+
+     const data: Deleteresponse = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message);
+    }
+    return data    
   };
   return (
     <DropdownMenu>
@@ -29,7 +42,16 @@ export default function Dropdownprofile({ id }: { id: string }) {
         <Ellipsis />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={deleteevent} className={"text-red-500"}>
+        <DropdownMenuItem onClick={() =>
+          toast.promise(deleteevent(), {
+            position: "top-center",
+            loading: "Loading...",
+            success: (response) => {              
+              router.push("/profile");
+              return response.message
+            },
+            error: (err) => err.message,
+          })} className={"text-red-500"}>
           <Trash /> Delete
         </DropdownMenuItem>
         <Link href={"/profile/updatepost/" + id}>
