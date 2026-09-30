@@ -27,7 +27,7 @@ export async function update(id: string, objectdata: object) {
     objectdata,
   );
 
-  console.log(replacedata.acknowledged);
+  console.log(replacedata.acknowledged);  
 }
 
 const blogs = client.db("devastory").collection("blogs");

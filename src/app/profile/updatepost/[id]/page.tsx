@@ -9,9 +9,16 @@ export default async function Page({
   }>;
 }) {
   const { id } = await params;
-  const data = await getonedata(id)
-  console.log(data)
-  return <div>
-    <Texteditor orithumbnail={data?.Thumbnail} oripost={data?.Content} orititle={data?.Title} oritopic={data?.Topic_genre} />
-  </div>;
+  const data = await getonedata(id);  
+  return (
+    <div>
+      <Texteditor
+        oriid={data?._id.toString() ?? ""}
+        orithumbnail={data?.Thumbnail}
+        oripost={data?.Content}
+        orititle={data?.Title}
+        oritopic={data?.Topic_genre}
+      />
+    </div>
+  );
 }

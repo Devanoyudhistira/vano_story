@@ -17,6 +17,7 @@ type editorprops = {
   orititle?: string;
   oritopic?: string;
   orithumbnail?: string;
+  oriid:string
 };
 
 type PostResponse = {
@@ -29,6 +30,7 @@ export default function Texteditor({
   orititle,
   oritopic,
   orithumbnail,
+  oriid
 }: editorprops) {
   const router = useRouter();
   const [post, setPost] = useState<JSONContent | string>(oripost ?? "");
@@ -42,8 +44,7 @@ export default function Texteditor({
   }
   function removetopic() {
     settopic([]);
-  }
-  console.log(topic);
+  }  
   const formdata = new FormData();
   if (image) {
     formdata.append("thumbnail", image);
@@ -51,14 +52,14 @@ export default function Texteditor({
   formdata.append("content", JSON.stringify(post));
   formdata.append("title", title);
   formdata.append("topic", topic[0]);
+  formdata.append("id", oriid);
 
   const onChange = (content: JSONContent | string) => {
     setPost(content);
-  };
-  console.log(topic);
+  };  
   const postcontent = async (): Promise<PostResponse> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
-      method: "POST",
+      method: "PUT",
       body: formdata,
     });
 
