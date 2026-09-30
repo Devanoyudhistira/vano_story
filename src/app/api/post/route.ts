@@ -2,8 +2,7 @@
 
 import {
   createblog,
-  deleteblog,
-  update,
+  deleteblog,  
   updateblog,
 } from "@/models/createdata";
 import getonedata, { Userprops } from "@/models/getonedata";

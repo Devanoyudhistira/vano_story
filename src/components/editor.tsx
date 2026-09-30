@@ -47,7 +47,7 @@ export default function RichTextEditor({
   console.log(content)
 
   return (
-    <div className="px-1 relative" >
+    <div className="px-1 relative " >
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
