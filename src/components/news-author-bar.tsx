@@ -1,13 +1,17 @@
 import moment from "moment";
+import Image from "next/image";
 
 type props={
     name:string;
     date:string;
+    profileimage?:string
 }
 
-export default function Newsauthorbar({name,date}:props){
+export default function Newsauthorbar({name,date,profileimage}:props){
     return <div className="flex items-center w-max rounded-xl ml-1 py-0.5  gap-2 px-2" >
-        <div className="w-9 h-9 rounded-full border-red-400 border" ></div>
+        <div className="w-9 h-9 rounded-full border-red-400 border" >
+           {profileimage ? <Image src={profileimage} width={500} height={500} alt={name} /> : <div></div> }
+        </div>
         <div className="flex flex-col" >
             <h1 className="text-xs capitalize font-semibold text-red-500 " > {name} </h1>
             <h5 className="text-xs font-medium" > {moment(date).format("ddd MMM DD YYYY") } </h5>

@@ -11,14 +11,32 @@ import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Previewpost from "@/components/previewpost";
 
 type PostResponse = {
   message: string;
-  success:boolean
+  success: boolean;
 };
 
 export default function Page() {
-  const [post, setPost] = useState<JSONContent | string>("");
+  const [preview, setpreview] = useState<boolean>(false);
+  const [post, setPost] = useState<JSONContent>({
+    type: "doc",
+    content: [
+      {
+        type: "heading",
+        attrs: {
+          level: 1,
+        },
+        content: [
+          {
+            type: "text",
+            text: "Write here",
+          },
+        ],
+      },
+    ],
+  });
   const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState("");
   const [topic, settopic] = useState<Array<string>>([]);
@@ -39,7 +57,7 @@ export default function Page() {
   formdata.append("title", title);
   formdata.append("topic", topic[0]);
 
-  const onChange = (content: JSONContent | string) => {
+  const onChange = (content: JSONContent) => {
     setPost(content);
   };
   const postcontent = async (): Promise<PostResponse> => {
@@ -56,9 +74,26 @@ export default function Page() {
 
     return data;
   };
+
+  function openpreview() {
+    setpreview(!preview);
+    if(preview){
+    setimage(null)    }
+  }
+
   return (
     <main className="w-full  ">
+      {preview ? (
+        <Previewpost
+        closeevent={openpreview}
+          title={title}
+          content={post}
+          image={image ? URL.createObjectURL(image) : ""}
+        />
+      ) : 
+      <>
       <Navbartexteditor
+        openpreview={openpreview}
         postbutton={() =>
           toast.promise(postcontent(), {
             position: "top-center",
@@ -90,7 +125,9 @@ export default function Page() {
         addtopic={addtopic}
         removetopic={removetopic}
       />
-      <Tiptap content={post} onChange={onChange} />
+      <Tiptap content={post} onChange={onChange} /> 
+      </>
+    }
     </main>
   );
 }

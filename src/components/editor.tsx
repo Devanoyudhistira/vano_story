@@ -7,8 +7,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 
 interface RichTextEditorProps {
-  content: string | JSONContent ; 
-  onChange: (content: string | JSONContent) => void;
+  content: JSONContent ; 
+  onChange: (content:JSONContent) => void;
 }
 export default function RichTextEditor({
   content,
@@ -47,7 +47,7 @@ export default function RichTextEditor({
   console.log(content)
 
   return (
-    <div className="px-1 relative " >
+    <div className="px-1 relative " >      
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>

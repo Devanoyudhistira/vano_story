@@ -1,4 +1,4 @@
-import getonedata from "@/models/getonedata";
+import getonedata, { getoneuserdatabyid } from "@/models/getonedata";
 import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "next/image";
@@ -16,10 +16,10 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { id } = await params;
   const data = await getonedata(id);
-
   if (!data) {
     return <div>Blog not found</div>;
   }
+  const user = await getoneuserdatabyid(data?._id.toString())
 
   const html = generateHTML(data.Content, [
     StarterKit,
@@ -43,7 +43,7 @@ export default async function Page({ params }: Props) {
           {" "}
           {data.Title}{" "}
         </h1>
-        <Newsauthorbar name="devano yudhistira" date={data.Date_created} />
+        <Newsauthorbar profileimage={user ? user?.Profile_image : ""} name={user ? user?.Name : "" } date={data.Date_created} />
         <div className="px-4 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
     </div>
