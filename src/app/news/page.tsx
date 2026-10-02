@@ -46,6 +46,8 @@ export default async function News({ searchParams }: Props) {
     alldata = await getdatabytitle(page, search);
   }
 
+    // await new Promise((resolve) => setTimeout(resolve, 100000));
+
   return (
     <div>
       <Navbar />
