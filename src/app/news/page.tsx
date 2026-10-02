@@ -66,8 +66,8 @@ export default async function News({ searchParams }: Props) {
             Latest News{" "}
             <Circle className="fill-red-500 text-red-500 size-3 animate-pulse" />{" "}
           </h1>
-          <Searchinput />
-          <div className="grid grid-cols-1 grid-rows-1 gap-3 lg:grid-cols-4" >
+          <Searchinput searchactive={search} />
+          <div className="grid grid-cols-1 grid-rows-1 gap-3 mt-3 lg:mt-0 lg:grid-cols-4" >
             {alldata.map((e) => (
               <Newscardpopular
                 id={e._id.toString()}
