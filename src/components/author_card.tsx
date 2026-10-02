@@ -3,20 +3,24 @@ import { Badge } from "./ui/badge";
 import { Card, CardDescription, CardFooter, CardHeader } from "./ui/card";
 import { ArrowRight } from "lucide-react";
 import { getcountdatafromuser } from "@/models/getdata";
+import Image from "next/image";
 
 type userprops = {
   username:string,
   bio:string,
   topic:string[],
-  id:string
+  id:string,
+  proilfeimage:string
 }
 
-export default async function Authorcomponent({username,bio,topic,id}:userprops) {
+export default async function Authorcomponent({username,bio,topic,id,proilfeimage}:userprops) {
   const userblogcount = await getcountdatafromuser(id)
   return (
     <Card className="px-1 py-1 gap-3">
       <CardHeader className="px-1 flex-row flex items-center">
-        <div className="w-12 h-12 rounded-full bg-blue-400"></div>
+        <div className="w-12 h-12 rounded-full overflow-hidden">
+          <Image src={proilfeimage} width={500} height={500} alt={username} className="w-full h-full object-center object-cover" />
+        </div>
         <div>
           <h1 className="text-xl font-semibold"> {username} </h1>  
         </div>

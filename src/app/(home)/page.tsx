@@ -162,6 +162,7 @@ export default async function Home() {
                 username={e.Name}
                 key={e._id.toString()}
                 topic={e.Category}
+                profileimage={e.Profile_image}
               />
             ))}
           </div>

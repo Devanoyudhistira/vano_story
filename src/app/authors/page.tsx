@@ -41,7 +41,7 @@ export default async function Author() {
       </header>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">
         {datauser.map(e => 
-        <Authorcomponent username={e.Name} topic={e.Category} bio={e.Description} id={e._id.toString()} key={e._id.toString()} />
+        <Authorcomponent proilfeimage={e.Profile_image} username={e.Name} topic={e.Category} bio={e.Description} id={e._id.toString()} key={e._id.toString()} />
         )}       
       </div>
     </main>
