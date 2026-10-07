@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 type editorprops = {
-  oripost?: JSONContent | string;
+  oripost: JSONContent 
   orititle?: string;
   oritopic?: string;
   orithumbnail?: string;
@@ -33,10 +33,11 @@ export default function Texteditor({
   oriid
 }: editorprops) {
   const router = useRouter();
-  const [post, setPost] = useState<JSONContent | string>(oripost ?? "");
+  const [post, setPost] = useState<JSONContent>(oripost  );
   const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState(orititle ?? "");
   const [topic, settopic] = useState<Array<string>>(oritopic ? [oritopic] : []);
+  const [preview, setpreview] = useState<boolean>(false);
   function addtopic(newtopic: string): void {
     if (!topic.includes(newtopic) && topic.length !== 1) {
       settopic((prev) => [...prev, newtopic]);
@@ -54,7 +55,7 @@ export default function Texteditor({
   formdata.append("topic", topic[0]);
   formdata.append("id", oriid);
 
-  const onChange = (content: JSONContent | string) => {
+  const onChange = (content: JSONContent ) => {
     setPost(content);
   };  
   const postcontent = async (): Promise<PostResponse> => {
@@ -71,6 +72,12 @@ export default function Texteditor({
 
     return data;
   };
+
+    function openpreview() {
+    setpreview(!preview);
+    if(preview){
+    setimage(null)    }
+  }
   return (
     <main className="w-full  ">
       <Navbartexteditor
@@ -85,6 +92,7 @@ export default function Texteditor({
             error: (err) => err.message,
           })
         }
+        openpreview={openpreview}
       />
       <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
         <Thumbnailimageinput

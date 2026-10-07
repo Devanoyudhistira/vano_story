@@ -9,13 +9,18 @@ export default async function Page({
   }>;
 }) {
   const { id } = await params;
-  const data = await getonedata(id);  
+  const data = await getonedata(id);
   return (
     <div>
       <Texteditor
         oriid={data?._id.toString() ?? ""}
         orithumbnail={data?.Thumbnail}
-        oripost={data?.Content}
+        oripost={
+          data?.Content ?? {
+            type: "doc",
+            content: [],
+          }
+        }
         orititle={data?.Title}
         oritopic={data?.Topic_genre}
       />
