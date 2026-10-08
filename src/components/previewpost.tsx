@@ -52,7 +52,7 @@ export default function Previewpost({
       <main className="gap-1">
         <div
           className={cn(
-            "w-full h-full flex items-center justify-center",
+            "w-full min-h-72 h-full flex-col flex items-center justify-center",
             image ? "h-full" : "h-[60vh]",
           )}
         >
@@ -70,11 +70,11 @@ export default function Previewpost({
               <Camera className="size-18 lg:size-30 text-destructive" />
             </div>
           )}
+        </div>
           <h1 className="text-2xl px-2 my-1 font-semibold text-black">
             {" "}
             {title}{" "}
           </h1>
-        </div>
         <Newsauthorbar name="Your name here" date={previewDate} />
         <div className="px-4 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>

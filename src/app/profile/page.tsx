@@ -17,7 +17,7 @@ export default async function Profile() {
   }
   const storyauthor = await getdatafromuser("1", userdata._id.toString());
   return (
-    <main className="h-screen w-screen flex flex-col gap-1">
+    <main className="h-screen w-screen flex flex-col gap-1 pb-red">
       <Navbar />
       <div className="flex flex-col gap-2 items-center">
         <div className="w-28 h-28 overflow-hidden rounded-full">

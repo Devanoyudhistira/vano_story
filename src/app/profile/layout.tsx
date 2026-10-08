@@ -6,7 +6,7 @@ export default async function ProfileLayout({ children }: LayoutProps<"/">) {
   if ((await getuser()) === false) {
     redirect("/sign");
   }
-  return <div>
+  return <div className=" pb-30" >
     <Toaster/>
     {children}</div>;
 }

@@ -11,13 +11,14 @@ import { JSONContent } from "@tiptap/react";
 import Topicoption from "@/components/topic-option";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Previewpost from "./previewpost";
 
 type editorprops = {
-  oripost: JSONContent 
+  oripost: JSONContent;
   orititle?: string;
   oritopic?: string;
   orithumbnail?: string;
-  oriid:string
+  oriid: string;
 };
 
 type PostResponse = {
@@ -30,10 +31,10 @@ export default function Texteditor({
   orititle,
   oritopic,
   orithumbnail,
-  oriid
+  oriid,
 }: editorprops) {
   const router = useRouter();
-  const [post, setPost] = useState<JSONContent>(oripost  );
+  const [post, setPost] = useState<JSONContent>(oripost);
   const [image, setimage] = useState<File | null>(null);
   const [title, settitle] = useState(orititle ?? "");
   const [topic, settopic] = useState<Array<string>>(oritopic ? [oritopic] : []);
@@ -45,7 +46,7 @@ export default function Texteditor({
   }
   function removetopic() {
     settopic([]);
-  }  
+  }
   const formdata = new FormData();
   if (image) {
     formdata.append("thumbnail", image);
@@ -55,9 +56,9 @@ export default function Texteditor({
   formdata.append("topic", topic[0]);
   formdata.append("id", oriid);
 
-  const onChange = (content: JSONContent ) => {
+  const onChange = (content: JSONContent) => {
     setPost(content);
-  };  
+  };
   const postcontent = async (): Promise<PostResponse> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
       method: "PUT",
@@ -73,49 +74,61 @@ export default function Texteditor({
     return data;
   };
 
-    function openpreview() {
+  function openpreview() {
     setpreview(!preview);
-    if(preview){
-    setimage(null)    }
+    if (preview) {
+      setimage(null);
+    }
   }
   return (
     <main className="w-full  ">
-      <Navbartexteditor
-        postbutton={() =>
-          toast.promise(postcontent(), {
-            position: "top-center",
-            loading: "Loading...",
-            success: (response) => {
-              router.push("/profile");
-              return response.message;
-            },
-            error: (err) => err.message,
-          })
-        }
-        openpreview={openpreview}
-      />
-      <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
-        <Thumbnailimageinput
-          oriimage={orithumbnail}
-          setimage={setimage}
-          className="w-full lg:w-full lg:h-full self-center border-2 border-dashed  h-50 rounded-sm"
+      {preview ? (
+        <Previewpost
+          closeevent={openpreview}
+          title={title}
+          content={post}
+          image={image ? URL.createObjectURL(image) : ""}
         />
-      </div>
-      <Field className="px-2 self-center w-[90vw]">
-        <Textarea
-          onChange={(e) => settitle(e.currentTarget.value)}
-          value={title}
-          placeholder="write the title here"
-          className="text-4xl lg:text-7xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
-        />
-      </Field>
-      <Topicoption
-        min="1"
-        topicarray={topic}
-        addtopic={addtopic}
-        removetopic={removetopic}
-      />
-      <Tiptap content={post} onChange={onChange} />
+      ) : (
+        <>
+          <Navbartexteditor
+            postbutton={() =>
+              toast.promise(postcontent(), {
+                position: "top-center",
+                loading: "Loading...",
+                success: (response) => {
+                  router.push("/profile");
+                  return response.message;
+                },
+                error: (err) => err.message,
+              })
+            }
+            openpreview={openpreview}
+          />
+          <div className="px-2 pt-2 mt-10 flex flex-col gap-3 ">
+            <Thumbnailimageinput
+              oriimage={orithumbnail}
+              setimage={setimage}
+              className="w-full lg:w-full lg:h-full self-center border-2 border-dashed  h-50 rounded-sm"
+            />
+          </div>
+          <Field className="px-2 self-center w-[90vw]">
+            <Textarea
+              onChange={(e) => settitle(e.currentTarget.value)}
+              value={title}
+              placeholder="write the title here"
+              className="text-4xl lg:text-7xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
+            />
+          </Field>
+          <Topicoption
+            min="1"
+            topicarray={topic}
+            addtopic={addtopic}
+            removetopic={removetopic}
+          />
+          <Tiptap content={post} onChange={onChange} />
+        </>
+      )}
     </main>
   );
 }
