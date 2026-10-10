@@ -46,7 +46,7 @@ export default async function Profile() {
           {" "}
           {userdata.Description}{" "}
         </p>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 -mt-6 mb-3 items-center">
           <Link href={"/profile/createpost"}>
             <Button size={"sm"} variant={"destructive"}>
               {" "}
@@ -76,6 +76,7 @@ export default async function Profile() {
               date={e.Date_created}
               genre={e.Topic_genre}
               id={e._id.toString()}
+              classname="h-55 aspect-4/3"
             />
           ))}
         </div>

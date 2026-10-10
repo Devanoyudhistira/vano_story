@@ -19,6 +19,7 @@ type editorprops = {
   oritopic?: string;
   orithumbnail?: string;
   oriid: string;
+  method?:string
 };
 
 type PostResponse = {
@@ -32,6 +33,7 @@ export default function Texteditor({
   oritopic,
   orithumbnail,
   oriid,
+  method
 }: editorprops) {
   const router = useRouter();
   const [post, setPost] = useState<JSONContent>(oripost);
@@ -61,7 +63,7 @@ export default function Texteditor({
   };
   const postcontent = async (): Promise<PostResponse> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post`, {
-      method: "PUT",
+      method: method ?? "PUT",
       body: formdata,
     });
 
@@ -109,7 +111,7 @@ export default function Texteditor({
             <Thumbnailimageinput
               oriimage={orithumbnail}
               setimage={setimage}
-              className="w-full lg:w-full lg:h-full self-center border-2 border-dashed  h-50 rounded-sm"
+              className="w-full lg:w-full lg:h-120 aspect-3/4 self-center border-2 border-dashed  h-50 rounded-sm"
             />
           </div>
           <Field className="px-2 self-center w-[90vw]">
@@ -117,7 +119,7 @@ export default function Texteditor({
               onChange={(e) => settitle(e.currentTarget.value)}
               value={title}
               placeholder="write the title here"
-              className="text-4xl lg:text-7xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
+              className="text-4xl lg:text-5xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
             />
           </Field>
           <Topicoption
