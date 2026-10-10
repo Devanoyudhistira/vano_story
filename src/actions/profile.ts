@@ -35,7 +35,7 @@ export async function Createprofile(
       .substring(2, 10 + 2) +
     "." +
     extension;
-    // await supabaseforimage.upload(`profile/${finalname}`, image);
+    await supabaseforimage.upload(`profile/${finalname}`, image);
     try {
       await create({
         Email: data.user?.email,
