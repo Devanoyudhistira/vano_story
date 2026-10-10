@@ -27,12 +27,12 @@ export default function Topicoption({
   addtopic,
   topicarray,
   removetopic,
-  min="3"
+  min = "3",
 }: {
   addtopic: (newtopic: string) => void;
   removetopic: (removetopic: void) => void;
   topicarray: Array<string>;
-  min?:string
+  min?: string;
 }) {
   return (
     <Card className="gap-1 px-2">
@@ -44,23 +44,21 @@ export default function Topicoption({
 
       <CardContent className="flex flex-wrap gap-1 flex-row border-b-2 pb-3 px-0 w-full mb-2">
         {topics.map((topic) => (
-          <Toggle
-            variant={"default"}
-            size={"sm"}
+          <Toggle            
+            size="sm"
+            pressed={topicarray.some(
+              (item) => item.toLowerCase() === topic.toLowerCase(),
+            )}
             disabled={topicarray.length >= Number(min)}
             onPressedChange={() => addtopic(topic)}
-            className={cn(
-              "w-max px-2 ",
-              topicarray.some((item) => item.toLowerCase() === topic.toLowerCase())&&
-                "bg-red-500! text-white border-white!",
-            )}
+            className="w-max px-2  aria-pressed:bg-red-500 aria-pressed:border-background "
             key={topic}
           >
             {topic}
           </Toggle>
         ))}
       </CardContent>
-      {topicarray.length >=Number(min) && (
+      {topicarray.length >= Number(1) && (
         <Button
           onClick={() => removetopic()}
           className={"w-max"}

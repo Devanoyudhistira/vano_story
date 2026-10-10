@@ -9,6 +9,7 @@ import { getdatafromuser } from "@/models/getdata";
 import Newscardpopular from "@/components/news-card-popular";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { signout } from "@/actions/auth";
 
 export default async function Profile() {
   const userdata: Userprops | boolean | null = await getuser();
@@ -46,19 +47,22 @@ export default async function Profile() {
           {" "}
           {userdata.Description}{" "}
         </p>
-        <div className="flex gap-2 -mt-6 mb-3 items-center">
-          <Link href={"/profile/createpost"}>
-            <Button size={"sm"} variant={"destructive"}>
-              {" "}
-              <Plus /> Create new post{" "}
-            </Button>
-          </Link>
-          <Link href={"/profile/update"} >
-          <Button size={"sm"} variant={"outline"}>
-            {" "}
-            <Pen /> Edit profile{" "}
-          </Button>
-          </Link>
+        <div className="flex gap-2  -mt-6 mb-3 w-max items-center flex-col">
+          <div className="flex gap-2 items-center" >
+            <Link href={"/profile/createpost"}>
+              <Button size={"sm"} variant={"destructive"}>
+                {" "}
+                <Plus /> Create new post{" "}
+              </Button>
+            </Link>
+            <Link href={"/profile/update"}>
+              <Button size={"sm"} variant={"outline"}>
+                {" "}
+                <Pen /> Edit profile{" "}
+              </Button>
+            </Link>
+          </div>
+          <form className={"w-full"} action={signout}> <Button variant={"destructive"} size={"lg"} className={"w-full text-lg lg:text-xl"} type="submit">Sign Out</Button> </form>          
         </div>
         {/* <div className="bg-red-500 w-200 h-200" ></div> */}
         <div className="px-2 grid grid-cols-1 lg:grid-cols-3 gap-3 pb-14">

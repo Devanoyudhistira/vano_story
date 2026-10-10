@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {
   const userdata =await getuser()
+  console.log(userdata)
   if(userdata){
     redirect("profile")
   }
