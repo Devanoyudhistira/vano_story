@@ -38,7 +38,7 @@ export default function Dropdownprofile({ id }: { id: string }) {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={""}>
+      <DropdownMenuTrigger className={"p-0"}>
         <Ellipsis />
       </DropdownMenuTrigger>
       <DropdownMenuContent>

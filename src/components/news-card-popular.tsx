@@ -40,7 +40,7 @@ export default async function Newscardpopular({
   console.log(author);
 
   return (
-    <Card className="pt-0  gap-2">
+    <Card className="pt-0 h-90 gap-2">
       <Link href={`/news/${id}`}>
         <div
           className={cn(
@@ -70,7 +70,7 @@ export default async function Newscardpopular({
             {moment(date).fromNow()}{" "}
           </span>
         </CardHeader>
-        <CardTitle className="text-xl px-2 font-semibold">{title}</CardTitle>
+        <CardTitle className="text-xl px-2 font-semibold">{truncate(title,20)}</CardTitle>
         <CardDescription className="px-3">
           {truncate(description, 60)}
         </CardDescription>
