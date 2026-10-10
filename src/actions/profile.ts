@@ -25,7 +25,7 @@ export async function Createprofile(
   const description = formdata.get("description");
   const image = formdata.get("gambar")!;
   if (!(image instanceof File)) {
-    throw new Error("Gambar harus berupa file");
+    throw new Error("File must be a image ");
   }
   const extension = image.name.split(".").at(-1);
 
@@ -50,6 +50,7 @@ export async function Createprofile(
       return { success: false, message: "err" }; 
     }
 }
+
 export async function updateprofile(
   category: Array<string>,
   prev: CreateProfileState,

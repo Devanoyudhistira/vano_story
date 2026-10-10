@@ -5,10 +5,15 @@ import { Textarea } from "./ui/textarea";
 type textinput = {
   oriname?: string;
   oribio?: string;
-    changename: (text: string) => void;
+  changename: (text: string) => void;
   changebio: (text: string) => void;
 };
-export default function Textinput({ oribio, oriname,changename,changebio }: textinput) {
+export default function Textinput({
+  oribio,
+  oriname,
+  changename,
+  changebio,
+}: textinput) {
   return (
     <FieldSet className=" w-full">
       <FieldLegend className="text-2xl self-start font-medium text-red-500">
@@ -18,14 +23,21 @@ export default function Textinput({ oribio, oriname,changename,changebio }: text
         <FieldLabel className="text-sm capitalize"> Profile Name </FieldLabel>
         <Input
           name="name"
+          required
           value={oriname ?? ""}
-          onChange={e => changename(e.currentTarget.value)}
+          onChange={(e) => changename(e.currentTarget.value)}
           placeholder="type your name here"
         />
       </Field>
       <Field className="gap-1">
         <FieldLabel className="capitalize text-sm"> About yourself </FieldLabel>
-        <Textarea onChange={e => changebio(e.currentTarget.value)} value={oribio ?? ""} className="h-25" name="description" />
+        <Textarea
+          required
+          onChange={(e) => changebio(e.currentTarget.value)}
+          value={oribio ?? ""}
+          className="h-25"
+          name="description"
+        />
       </Field>
     </FieldSet>
   );

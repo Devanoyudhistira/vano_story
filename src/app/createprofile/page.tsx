@@ -7,13 +7,13 @@ import { redirect } from "next/navigation";
 export default async function Page() {
   const userdata =await getuser()
   const supabase = await createClient()
-  const {data} = await supabase.auth.getUser()
+  const {data} = await supabase.auth.getSession()
   console.log(data)
-  if(!data){
-    redirect("sign")
+  if(!data.session){
+    redirect("/sign")
   }
   if(userdata){
-    redirect("profile")
+    redirect("/profile")
   }
   return (
     <div>

@@ -10,20 +10,22 @@ import { cn } from "@/lib/utils";
 export default function Profilecreation({
   className,
   oriimage,
+  file,
+  setfile
 }: {
   className?: string;
   oriimage?: string;
+  file:File | null;
+  setfile:React.Dispatch<React.SetStateAction<File | null>>;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [change, setchange] = useState<string | null>(oriimage ?? null);
-  const [file, setfile] = useState<File>();
-
-  console.log(file?.size);
+  const [change, setchange] = useState<string | null>(oriimage ?? null);  
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    setfile(file);
     if (!file) return;
+    setfile(file);
 
     const url = URL.createObjectURL(file);
     setchange(url);
@@ -45,7 +47,7 @@ export default function Profilecreation({
       <CardTitle className="text-lg font-semibold ml-4 flex flex-col gap-0 self-start lg:self-center capitalize">
         {" "}
         profile photo{" "}
-        {(file?.size ?? 0) > 600000000 && (
+        {(file?.size ?? 0) > 6000000 && (
           <>
             <span className="text-lg text-destructive font-semibold">
               {" "}

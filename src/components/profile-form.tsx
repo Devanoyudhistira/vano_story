@@ -1,8 +1,6 @@
 "use client";
 
-import {  
-  CreateProfileState,  
-} from "@/actions/profile";
+import { CreateProfileState } from "@/actions/profile";
 import Profilecreation from "./profile-creation";
 import Textinput from "./text-input";
 import Topicoption from "./topic-option";
@@ -10,7 +8,8 @@ import { Button } from "./ui/button";
 import { useActionState, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { Spinner } from "./ui/spinner";
-
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 type ProfileAction = (
   topic: string[],
@@ -33,10 +32,14 @@ export default function Profileform({
   usertopic,
   profileaction,
 }: profileprops) {
+  const path = usePathname();
+  const updatepath = path.split("/").includes("update");
   const [topic, settopic] = useState<Array<string>>(usertopic ?? []);
   const [username, setusername] = useState<string>(name ?? "");
   const [userbio, setuserbio] = useState<string>(bio ?? "");
   const [profileimage] = useState<string>(image ?? "");
+  const [file, setfile] = useState<File | null>(null);
+  console.log(file);
   const [state, action, pending] = useActionState<CreateProfileState, FormData>(
     profileaction.bind(null, topic),
     null,
@@ -61,9 +64,13 @@ export default function Profileform({
     }
   });
   return (
-    <form action={action} className="gap-4 flex flex-col items-center px-3">      
+    <form action={action} className="gap-4 flex flex-col items-center px-3">
       <div className="flex flex-col lg:flex-row lg:gap-4 lg:px-4">
-        <Profilecreation oriimage={profileimage} />
+        <Profilecreation
+          file={file}
+          setfile={setfile}
+          oriimage={profileimage}
+        />
         <div className="flex flex-col gap-2">
           <Textinput
             changename={changename}
@@ -76,17 +83,24 @@ export default function Profileform({
             topicarray={topic}
             addtopic={addtopic}
           />
-      <Button
-        type="submit"
-        variant={"default"}
-        className={`capitalize text-xl`}
-        size={"lg"}
-        disabled={pending}
-      >
-        {" "}
-        {pending ? "loading" : "create profile"}
-        {pending && <Spinner />}{" "}
-      </Button>
+          <Button
+            type="submit"
+            variant={"default"}
+            className={cn(
+              `capitalize  text-xl`,
+              (file?.size ?? 0) > 6000000 && "bg-red-500!",
+            )}
+            size={"lg"}
+            disabled={
+              pending ||
+              topic.length <= 0  ||
+              (!updatepath && (!file || file.size > 6000000))
+            }
+          >
+            {" "}
+            {pending ? "loading" : "create profile"}
+            {pending && <Spinner />}{" "}
+          </Button>
         </div>
       </div>
     </form>
