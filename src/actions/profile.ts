@@ -20,6 +20,7 @@ export async function Createprofile(
   // console.log(category);
   const supabaseauth = await createClient();
   const { data } = await supabaseauth.auth.getUser();
+  console.log(data.user?.email)
   const name = formdata.get("name");
   const description = formdata.get("description");
   const image = formdata.get("gambar")!;
@@ -34,20 +35,20 @@ export async function Createprofile(
       .substring(2, 10 + 2) +
     "." +
     extension;
-    await supabaseforimage.upload(`profile/${finalname}`, image);
-  try {
-    await create({
-      Email: data.user?.email,
-      Name: name,
-      Profile_image: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`,
-      Description: description,
-      Category: category,
-    });    
-    return { success: true };
-  } catch (err) {
-    console.log(err)
-    return { success: false, message: "err" }; 
-  }
+    // await supabaseforimage.upload(`profile/${finalname}`, image);
+    try {
+      await create({
+        Email: data.user?.email,
+        Name: name,
+        Profile_image: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`,
+        Description: description,
+        Category: category,
+      });    
+      return { success: true };
+    } catch (err) {
+      console.log(err)
+      return { success: false, message: "err" }; 
+    }
 }
 export async function updateprofile(
   category: Array<string>,

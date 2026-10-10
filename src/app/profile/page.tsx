@@ -10,9 +10,13 @@ import Newscardpopular from "@/components/news-card-popular";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signout } from "@/actions/auth";
+import { createClient } from "@/supabase/server";
 
 export default async function Profile() {
   const userdata: Userprops | boolean | null = await getuser();
+  const supabase = await createClient()
+  const {data} = await supabase.auth.getUser()
+  console.log(data)
   if (!userdata) {
     redirect("/sign");
   }

@@ -4,8 +4,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function signIn() {
-  const origin = (await headers()).get("origin");
+export async function signIn() {  
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -13,6 +12,7 @@ export async function signIn() {
       redirectTo: `${process.env.NEXT_PUBLIC_URL}/api/auth`,
     },
   });
+  console.log(error)
 
   // console.log(data.url);
   if (data.url) {

@@ -1,11 +1,17 @@
 import { Createprofile } from "@/actions/profile";
 import Profileform from "@/components/profile-form";
 import getuser from "@/models/profile";
+import { createClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
   const userdata =await getuser()
-  console.log(userdata)
+  const supabase = await createClient()
+  const {data} = await supabase.auth.getUser()
+  console.log(data)
+  if(!data){
+    redirect("sign")
+  }
   if(userdata){
     redirect("profile")
   }

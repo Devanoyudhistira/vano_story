@@ -9,7 +9,6 @@ const client = new MongoClient(uri, {
   },
 });
 const users = client.db("devastory").collection("users");
-await users.createIndex({ email: 1 }, { unique: true });
 
 export async function create(objectdata: object) {
   await client.connect();
@@ -31,7 +30,6 @@ export async function update(id: string, objectdata: object) {
 }
 
 const blogs = client.db("devastory").collection("blogs");
-// await users.createIndex({ email: 1 }, { unique: true });
 
 export async function createblog(objectdata: object) {
   await client.connect();
