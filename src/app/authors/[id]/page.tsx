@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
           {userdata.Description}{" "}
         </p>       
         {/* <div className="bg-red-500 w-200 h-200" ></div> */}
-        <div className="px-2 flex flex-col gap-3 pb-14">
+        <div className="px-2 grid grid-cols-1 lg:grid-cols-3 gap-3 pb-14">
           {storyauthor?.map((e) => (
             <Newscardpopular
               key={e._id.toString()}

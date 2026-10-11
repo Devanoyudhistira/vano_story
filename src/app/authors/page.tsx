@@ -1,4 +1,5 @@
 import Authorcomponent from "@/components/author_card";
+import SkeletonLoading from "@/components/loading-author.tsx/author-loading";
 import { Badge } from "@/components/ui/badge";
 // import {
 //   InputGroup,
@@ -26,20 +27,9 @@ export default async function Author() {
         <p className="text-md font-semibold text-gray-400">
           Explore a community of writers and discover the people behind the stories. Browse author profiles, learn about their interests, and find new perspectives, stories, and ideas to read.
 
-        </p>
-        {/* <InputGroup className="rounded-r-2xl overflow-hidden" >
-          <InputGroupAddon>
-            {" "}
-            <Search />{" "}
-          </InputGroupAddon>
-          <InputGroupInput placeholder="search author here" />
-          <InputGroupButton variant={"default"} className={"h-full px-3 "}>
-            {" "}
-            <Search className="size-5" />{" "}
-          </InputGroupButton>
-        </InputGroup>         */}
+        </p>        
       </header>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">        
         {datauser.map(e => 
         <Authorcomponent proilfeimage={e.Profile_image} username={e.Name} topic={e.Category} bio={e.Description} id={e._id.toString()} key={e._id.toString()} />
         )}       

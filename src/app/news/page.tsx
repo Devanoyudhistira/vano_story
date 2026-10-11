@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar";
 import Paginationnumber from "@/components/pagination-number";
 import { Badge } from "@/components/ui/badge";
-import { Circle, Dot, Search } from "lucide-react";
+import { Circle, Dot } from "lucide-react";
 import Newscardpopular from "@/components/news-card-popular";
 import { ObjectId } from "mongodb";
 import getdata, { getcountdata, getdatabytitle } from "@/models/getdata";
@@ -68,7 +68,7 @@ export default async function News({ searchParams }: Props) {
             <Circle className="fill-red-500 text-red-500 size-3 animate-pulse" />{" "}
           </h1>
           <Searchinput searchactive={search} />
-          <div className="grid grid-cols-1 grid-rows-1 gap-3 mt-3 lg:mt-0 lg:grid-cols-4" >
+          <div className="grid grid-cols-1 grid-rows-1 gap-3 mt-3 lg:mt-0 lg:grid-cols-4" >            
             {alldata.map((e) => (
               <Newscardpopular
                 id={e._id.toString()}
