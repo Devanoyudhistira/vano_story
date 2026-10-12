@@ -4,6 +4,7 @@ import {
   AlignRight,
   BlocksIcon,
   Bold,
+  ExpandIcon,
   Heading1,
   Heading2,
   Heading3,
@@ -81,22 +82,23 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
       icon: <BlocksIcon className="size-4" />,
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
       preesed: editor.isActive("blockquote"),
-    },
+    },   
   ];
 
   return (
-    <div className="border top-12 sticky rounded-md p-1 mb-1 flex gap-2 flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-background">
+    <div className="  w-max px-2 py-1 scroll  rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground">
       {Options.map((option, index) => (
         <Toggle
           key={index}
           pressed={option.preesed}
           onPressedChange={option.onClick}
-          size={"sm"}
-          className={"aria-pressed:bg-red-500 aria-pressed:text-accent"}
+          size={"sm"}          
+          className={"aria-pressed:bg-red-500 border-0 outline-0 ring-0 aria-pressed:text-accent"}
         >
           {option.icon}
         </Toggle>
-      ))}
+      ))}     
+       
     </div>
   );
 }

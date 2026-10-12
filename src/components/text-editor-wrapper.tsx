@@ -19,7 +19,7 @@ type editorprops = {
   oritopic?: string;
   orithumbnail?: string;
   oriid: string;
-  method?:string
+  method?: string;
 };
 
 type PostResponse = {
@@ -33,7 +33,7 @@ export default function Texteditor({
   oritopic,
   orithumbnail,
   oriid,
-  method
+  method,
 }: editorprops) {
   const router = useRouter();
   const [post, setPost] = useState<JSONContent>(oripost);
@@ -119,16 +119,20 @@ export default function Texteditor({
               onChange={(e) => settitle(e.currentTarget.value)}
               value={title}
               placeholder="write the title here"
-              className="text-4xl lg:text-5xl border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
+              className="text-4xl lg:text-5xl bg-transparent border-none border-0 focus:ring-0 focus:ring-amber-50/0 w-10 inline-block outline-0 ring-0 mb-4 mt-3 text-red-500 font-semibold"
             />
           </Field>
-          <Topicoption
-            min="1"
-            topicarray={topic}
-            addtopic={addtopic}
-            removetopic={removetopic}
-          />
-          <Tiptap content={post} onChange={onChange} />
+          <div className="w-full px-4">
+            <Topicoption
+              min="1"
+              topicarray={topic}
+              addtopic={addtopic}
+              removetopic={removetopic}
+            />
+          </div>
+          <div className="w-full px-4 mt-3 " > 
+            <Tiptap content={post} onChange={onChange} />
+          </div>
         </>
       )}
     </main>

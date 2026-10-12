@@ -3,28 +3,28 @@
 @import "shadcn/tailwind.css";
 
 @layer base {
-  h1 {
+ .blog-content h1 {
     @apply text-2xl  font-semibold;
   }  
-  h2{
+ .blog-content h2{
     @apply text-xl font-semibold
   }
-  h3{
+ .blog-content h3{
     @apply text-lg font-semibold
   }
-  mark{
+.blog-content  mark{
     @apply bg-red-400 text-white
   }
-  ul{
+ .blog-content ul{
     @apply ml-3 list-disc font-normal 
   }
-  ol{
+ .blog-content ol{
     @apply ml-3 px-2  font-normal
   }
-  strong{
+ .blog-content strong{
     @apply font-semibold
   }    
-  blockquote{
+ .blog-content blockquote{
     @apply bg-red-50 px-3 text-red-600 border-t-2 border-red-700 font-semibold italic  
   }
 }
