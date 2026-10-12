@@ -16,8 +16,9 @@ import {
 } from "lucide-react";
 import { Toggle } from "./ui/toggle";
 import { Editor } from "@tiptap/react";
+import { cn } from "@/lib/utils";
 
-export default function MenuBar({ editor }: { editor: Editor | null }) {
+export default function MenuBar({ editor,fullscreen=false }: { editor: Editor | null ,fullscreen?:boolean}) {
   if (!editor) {
     return null;
   }
@@ -86,7 +87,7 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
   ];
 
   return (
-    <div className="  w-[90%] lg:w-max shadow-lg items-center justify-center px-6 py-1  self-center rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground">
+    <div className={cn( "w-[90%]  lg:w-max shadow-lg items-center justify-center px-6 py-1  self-center rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground" )}>
       {Options.map((option, index) => (
         <Toggle
           key={index}

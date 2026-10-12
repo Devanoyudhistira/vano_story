@@ -12,6 +12,9 @@ import Topicoption from "@/components/topic-option";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Previewpost from "./previewpost";
+import { Button } from "./ui/button";
+import { Maximize } from "lucide-react";
+import FullscreenEditor from "./fullscreen-editor";
 
 type editorprops = {
   oripost: JSONContent;
@@ -41,6 +44,7 @@ export default function Texteditor({
   const [title, settitle] = useState(orititle ?? "");
   const [topic, settopic] = useState<Array<string>>(oritopic ? [oritopic] : []);
   const [preview, setpreview] = useState<boolean>(false);
+  const [fullscreen, setfullscreen] = useState<boolean>(false);
   function addtopic(newtopic: string): void {
     if (!topic.includes(newtopic) && topic.length !== 1) {
       settopic((prev) => [...prev, newtopic]);
@@ -84,7 +88,7 @@ export default function Texteditor({
   }
   return (
     <main className="w-full  ">
-      {preview ? (
+      {!fullscreen ?  preview ? (
         <Previewpost
           closeevent={openpreview}
           title={title}
@@ -131,10 +135,14 @@ export default function Texteditor({
             />
           </div>
           <div className="w-full px-4 mt-3 " > 
+            <div className="flex gap-2 items-center" >
+            <Button onClick={() => setfullscreen(true) } variant={"outline"} size={"icon-sm"} > <Maximize/> </Button>
+            <h1> press to enter Fullscreen </h1>
+            </div>
             <Tiptap content={post} onChange={onChange} />
           </div>
         </>
-      )}
+      ) : <FullscreenEditor minimize={() => setfullscreen(false)} post={post} onChange={onChange} />  }
     </main>
   );
 }

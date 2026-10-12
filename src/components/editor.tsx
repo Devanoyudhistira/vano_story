@@ -5,20 +5,18 @@ import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./menubar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
-import { Button } from "./ui/button";
-import { Expand, ExpandIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 interface RichTextEditorProps {
   content: JSONContent;
   onChange: (content: JSONContent) => void;
+  fullscreen?: boolean;
 }
 export default function RichTextEditor({
   content,
   onChange,
+  fullscreen = false,
 }: RichTextEditorProps) {
-  const [fullscreen,setfullscreen] = useState(false)
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -40,21 +38,38 @@ export default function RichTextEditor({
     ],
     content: content,
     editorProps: {
-      attributes: {class:"lg:h-130 h-110 overflow-y-auto w-full outline-none ring-0 rounded-md py-2" },
+      attributes: {
+        class: cn(
+          ` overflow-y-auto w-full outline-none ring-0 rounded-md py-2`,
+          fullscreen ? "lg:min-h-screen min-h-screen -mt-5" : "lg:h-130 h-110",
+        ),
+      },
     },
     onUpdate: ({ editor }) => {
       // console.log(editor.getHTML());
       onChange(editor.getJSON());
     },
-  });  
+  });
 
   return (
-    <div className={cn( "w-full gap-0 bg-primary-foreground pb-2 top-2 z-1000 border-2 rounded-md blog-content p-2 flex-col flex h-full relative ")}>      
-      <div className="self-center w-full  flex-col flex items-center justify-center sticky top-1 ">
-        <MenuBar editor={editor} />
+    <div>
+      {fullscreen && (
+        <div className="self-center w-full  flex-col flex items-center justify-center sticky top-1 ">
+          <MenuBar fullscreen={fullscreen} editor={editor} />
+        </div>
+      )}
+      <div
+        className={cn(
+          "w-full gap-0 bg-primary-foreground pb-2 top-2 z-10 border-2 rounded-md blog-content p-2 flex-col flex h-full relative ",
+        )}
+      >
+        {!fullscreen && (
+          <div className="self-center w-full  flex-col flex items-center justify-center sticky top-1 ">
+            <MenuBar fullscreen={fullscreen} editor={editor} />
+          </div>
+        )}
+        <EditorContent editor={editor} />
       </div>
-      <EditorContent editor={editor} />      
-  
     </div>
   );
 }
