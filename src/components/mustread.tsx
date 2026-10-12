@@ -17,7 +17,7 @@ type post = {
 
 export default function Mustread({className,title,author,date,image,description}:post) {
   return (
-    <Card className={cn("px-0 w-120 py-0 h-70",className)}>
+    <Card className={cn("px-0 w-90 self-center mb-2 lg:mb-0 lg:w-120 py-0 h-70",className)}>
       <div className="w-full h-full relative flex flex-col justify-end px-2 py-1">
         <Image src={image} height={"500"} width={500} alt={title} className="w-full h-full object-cover object-center absolute top-0 left-0 " />
         <CardHeader className="flex gap-2 px-0 z-2 items-center">
