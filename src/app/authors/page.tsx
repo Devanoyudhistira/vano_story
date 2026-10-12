@@ -1,25 +1,13 @@
 import Authorcomponent from "@/components/author_card";
-import SkeletonLoading from "@/components/loading-author.tsx/author-loading";
-import { Badge } from "@/components/ui/badge";
-// import {
-//   InputGroup,
-//   InputGroupAddon,
-//   InputGroupButton,
-//   InputGroupInput,
-// } from "@/components/ui/input-group";
+import Navbar from "@/components/navbar";
 import { getalluser } from "@/models/getalldata";
-import { Circle } from "lucide-react";
 
 export default async function Author() {
   const datauser = await getalluser()
   return (
     <main className="overflow-hidden pb-3">
-      <header className="py-4 mt-2 px-3 flex flex-col gap-1">
-        <Badge variant={"outline"}>
-          {" "}
-          <Circle className="fill-green-500 text-green-500 animate-pulse" /> 195
-          Author{" "}
-        </Badge>
+      <Navbar/>
+      <header className="py-4 mt-2 px-3 flex flex-col gap-1">      
         <h1 className="text-2xl font-semibold capitalize">
           {" "}
           Author and writer discovery{" "}
