@@ -7,6 +7,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import { Button } from "./ui/button";
 import { Expand, ExpandIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface RichTextEditorProps {
   content: JSONContent;
@@ -16,6 +18,7 @@ export default function RichTextEditor({
   content,
   onChange,
 }: RichTextEditorProps) {
+  const [fullscreen,setfullscreen] = useState(false)
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -37,31 +40,21 @@ export default function RichTextEditor({
     ],
     content: content,
     editorProps: {
-      attributes: {
-        class: "h-90 overflow-scroll w-full outline-none ring-0 rounded-md  py-2",
-      },
+      attributes: {class:"lg:h-130 h-110 overflow-y-auto w-full outline-none ring-0 rounded-md py-2" },
     },
     onUpdate: ({ editor }) => {
       // console.log(editor.getHTML());
       onChange(editor.getJSON());
     },
-  });
-  console.log(content);
+  });  
 
   return (
-    <div className="w-full relative  gap-0 h-full pb-2  border-2 rounded-md blog-content p-2 flex-col flex ">      
-      <div className="self-center sticky top-1 ">
+    <div className={cn( "w-full gap-0 bg-primary-foreground pb-2 top-2 z-1000 border-2 rounded-md blog-content p-2 flex-col flex h-full relative ")}>      
+      <div className="self-center w-full  flex-col flex items-center justify-center sticky top-1 ">
         <MenuBar editor={editor} />
       </div>
-      <EditorContent  editor={editor} />      
-      <Button
-        variant={"ghost"}
-        size={"icon-lg"}
-        className={"absolute  top-3 z-12000 right-2 "}
-      >
-        {" "}
-        <Expand className="size-6" />{" "}
-      </Button>
+      <EditorContent editor={editor} />      
+  
     </div>
   );
 }

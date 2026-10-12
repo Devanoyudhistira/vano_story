@@ -86,7 +86,7 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
   ];
 
   return (
-    <div className="  w-max px-2 py-1 scroll  rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground">
+    <div className="  w-[90%] lg:w-max shadow-lg items-center justify-center px-6 py-1  self-center rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground">
       {Options.map((option, index) => (
         <Toggle
           key={index}
