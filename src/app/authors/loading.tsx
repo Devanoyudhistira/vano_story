@@ -23,8 +23,7 @@ export default function Loading() {
       </header>
       <Badge variant={"outline"} className="text-md h-5 ">
         {" "}
-        <Circle className="fill-green-500 text-green-400 animate-pulse " /> all
-        wait for the data <Dot className="animate-pulse" /> <Spinner />
+        <Circle className="fill-green-500 text-green-400 animate-pulse " /> loading user data <Dot className="animate-pulse" /> <Spinner />
       </Badge>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">
         {arr.map((e) => (

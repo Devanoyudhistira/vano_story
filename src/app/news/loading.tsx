@@ -16,8 +16,7 @@ export default function Loading() {
       </p>
       <Badge variant={"outline"} className="text-md h-5 ">
         {" "}
-        <Circle className="fill-green-500 text-green-400 animate-pulse " /> all
-        news total <Dot className="animate-pulse" /> <Spinner />
+        <Circle className="fill-green-500 text-green-400 animate-pulse " /> load news <Dot className="animate-pulse" /> <Spinner />
       </Badge>
       <h1 className="text-3xl  lg:col-span-4 font-bold capitalize flex items-center gap-1 mb-3 mt-2">
         {" "}

@@ -14,7 +14,6 @@ export default async function Author() {
         </h1>
         <p className="text-md font-semibold text-gray-400">
           Explore a community of writers and discover the people behind the stories. Browse author profiles, learn about their interests, and find new perspectives, stories, and ideas to read.
-
         </p>        
       </header>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-4 items-center px-2">        
