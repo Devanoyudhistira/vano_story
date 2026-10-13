@@ -53,10 +53,8 @@ export default function RichTextEditor({
 
   return (
     <div>
-      {fullscreen && (
-        <div className="self-center w-full  flex-col flex items-center justify-center sticky top-1 ">
-          <MenuBar fullscreen={fullscreen} editor={editor} />
-        </div>
+      {fullscreen && (        
+          <MenuBar fullscreen={fullscreen} editor={editor} />        
       )}
       <div
         className={cn(

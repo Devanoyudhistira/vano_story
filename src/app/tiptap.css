@@ -6,6 +6,9 @@
  .blog-content h1 {
     @apply text-2xl text-red-500 font-bold;
   }  
+ .blog-content p {
+    @apply mb-2;
+  }  
  .blog-content h2{
     @apply text-xl font-semibold my-1.5 
   }

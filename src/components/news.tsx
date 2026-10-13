@@ -4,7 +4,7 @@ export default function News({ html }: { html: string }) {
   return (
     <div className="blog-content" >
       <div
-        className="px-4 mt-3 "
+        className="px-4 mt-3 whitespace-pre-wrap"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>

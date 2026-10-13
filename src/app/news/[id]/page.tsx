@@ -41,7 +41,7 @@ export default async function Page({ params }: Props) {
             height={1200}
             width={500}
           />        
-        <h1 className="text-lg! lg:text-4xl! px-2 my-1 font-semibold text-black">
+        <h1 className="text-lg! lg:text-4xl! px-2 my-1 font-semibold ">
           {" "}
           {data.Title}{" "}
         </h1>

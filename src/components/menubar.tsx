@@ -87,19 +87,18 @@ export default function MenuBar({ editor,fullscreen=false }: { editor: Editor | 
   ];
 
   return (
-    <div className={cn( "w-[90%]  lg:w-max shadow-lg items-center justify-center px-6 py-1  self-center rounded-xl flex gap-2  flex-row flex-nowrap overflow-auto  space-x-2 z-100 bg-primary-foreground" )}>
+    <div className={cn( "w-full lg:w-max shadow-lg items-center justify-start px-6 py-1  self-center rounded-xl flex gap-0.5 lg:gap-2  flex-row flex-nowrap overflow-x-auto overflow-y-hidden  space-x-2 z-100 bg-primary-foreground" )}>
       {Options.map((option, index) => (
         <Toggle
           key={index}
           pressed={option.preesed}
           onPressedChange={option.onClick}
           size={"sm"}          
-          className={"aria-pressed:bg-red-500 border-0 outline-0 ring-0 aria-pressed:text-accent"}
+          className={"aria-pressed:bg-red-500  border-0 outline-0 ring-0 aria-pressed:text-accent"}
         >
           {option.icon}
         </Toggle>
-      ))}     
-       
+      ))}            
     </div>
   );
 }
