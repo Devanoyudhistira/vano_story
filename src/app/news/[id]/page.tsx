@@ -11,6 +11,7 @@ import { getlimiteddata } from "@/models/getdata";
 import { Separator } from "@base-ui/react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import truncate from "@/lib/truncat";
 
 type Props = {
   params: Promise<{
@@ -39,7 +40,7 @@ export default async function Page({ params }: Props) {
       <NewsNavbar />
       <div className=" w-full lg:gap-2 px-0 self-center mt-1 *:rounded-lg flex flex-col lg:flex-row ">
         <main className="gap-1 w-full lg:w-[180%] flex flex-col bg-background shadow-2xl pt-3 mt-3 ">
-          <div className="overflow-hidden rounded-xl " >
+          <div className="overflow-hidden rounded-xl ">
             <Image
               src={data?.Thumbnail}
               alt=""
@@ -53,6 +54,13 @@ export default async function Page({ params }: Props) {
             {data.Title}{" "}
           </h1>
           <Newsauthorbar
+            title={data.Title}
+            description={truncate(
+              data?.Content?.content
+                ?.map((e) => e?.content?.[0]?.text ?? "")
+                .join(" ") ?? "",
+              100,
+            )}
             profileimage={user ? user?.Profile_image : ""}
             name={user ? user?.Name : ""}
             date={data.Date_created}
@@ -62,10 +70,12 @@ export default async function Page({ params }: Props) {
         <footer className="flex flex-col lg:mt-4 h-fit gap-2 py-4 w-full px-2 bg-background shadow-2xl ">
           <div className="border-y-2 py-3 w-full flex text-sm items-center justify-between px-4">
             <h1 className=" font-bold text-lg ">other news</h1>
-            <Link className="text-red-500 flex items-center gap-0.5 font-medium" href={"/news"}>
+            <Link
+              className="text-red-500 flex items-center gap-0.5 font-medium"
+              href={"/news"}
+            >
               {" "}
-              See other{" "}
-              <ChevronRight/>
+              See other <ChevronRight />
             </Link>
           </div>
           {otherpost.map((e) => (
