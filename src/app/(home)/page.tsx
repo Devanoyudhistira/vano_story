@@ -43,19 +43,19 @@ export default async function Home() {
       <Navbar />
       <main className="flex  flex-col px-1 gap-3 py-2 items-center">
         <div className="flex flex-col lg:flex-row lg:mt-2 lg:gap-2">
-          {alldata[0] && (
+          {alldata[1] && (
             <Newscardpopular
-              image={alldata[0]?.Thumbnail}
-              author={alldata[0]?.Author}
-              genre={alldata[0]?.Topic_genre}
-              title={alldata[0]?.Title}
-              date={alldata[0]?.Date_created}
+              image={alldata[1]?.Thumbnail}
+              author={alldata[1]?.Author}
+              genre={alldata[1]?.Topic_genre}
+              title={alldata[1]?.Title}
+              date={alldata[1]?.Date_created}
               description={
-                alldata[0]?.Content?.content
+                alldata[1]?.Content?.content
                   ?.map((e) => e?.content?.[0]?.text ?? "")
                   .join(" ") ?? ""
               }
-              id={alldata[0]._id.toString()}
+              id={alldata[1]._id.toString()}
             />
           )}
           <div className="flex flex-col gap-2 px-1 py-1">
@@ -155,7 +155,7 @@ export default async function Home() {
           <h1 className="text-xl font-bold self-start capitalize">
             top creator
           </h1>
-          <div className="flex flex-col px-1 gap-1.5 w-full ">
+          <div className="flex flex-col px-1 gap-0.5 w-full ">
             {user.map((e) => (
               <Authorcard
                 id={e._id.toString()}

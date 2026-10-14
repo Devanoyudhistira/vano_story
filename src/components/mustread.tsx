@@ -23,7 +23,7 @@ export default function Mustread({className,title,author,date,image,description}
         <CardHeader className="flex gap-2 px-0 z-2 items-center">
           <h1 className="text-md font-bold text-red-500"> { getusername(author)} </h1>
           <Dot />
-          <h1> {moment(date).fromNow() } </h1>
+          <h1 className="text-destructive font-medium" > {moment(date).fromNow() } </h1>
         </CardHeader>
         <CardTitle className="text-lg font-bold   z-2 text-white" >
           {title}
