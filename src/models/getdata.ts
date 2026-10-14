@@ -49,6 +49,19 @@ async function getdata(pagenumber: string) {
     .toArray();
   return connection;
 }
+export async function getlimiteddata(limit: number) {    
+
+  await client.connect();
+  const connection = await client
+    .db("devastory")
+    .collection<Blog>("blogs")
+    .find({})
+    .limit(limit)
+    .sort({ Date_created: -1 })
+    .toArray();
+  return connection;
+}
+
 export async function getdatabytitle(pagenumber: string, search: string) {
   const page = Number(pagenumber);
   const limit = 6;

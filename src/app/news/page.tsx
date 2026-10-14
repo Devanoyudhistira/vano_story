@@ -87,7 +87,6 @@ export default async function News({ searchParams }: Props) {
             ))}
           </div>
         </div>
-
         <Paginationnumber
           maximum={Math.ceil(datacount / 6)}
           page={page ? page : "1"}
