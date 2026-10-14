@@ -18,7 +18,13 @@ import { Toggle } from "./ui/toggle";
 import { Editor } from "@tiptap/react";
 import { cn } from "@/lib/utils";
 
-export default function MenuBar({ editor,fullscreen=false }: { editor: Editor | null ,fullscreen?:boolean}) {
+export default function MenuBar({
+  editor,
+  fullscreen = false,
+}: {
+  editor: Editor | null;
+  fullscreen?: boolean;
+}) {
   if (!editor) {
     return null;
   }
@@ -83,22 +89,31 @@ export default function MenuBar({ editor,fullscreen=false }: { editor: Editor | 
       icon: <BlocksIcon className="size-4" />,
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
       preesed: editor.isActive("blockquote"),
-    },   
+    },
   ];
 
   return (
-    <div className={cn( "w-full lg:w-max shadow-lg items-center justify-start px-6 py-1  self-center rounded-xl flex gap-0.5 lg:gap-2  flex-row flex-nowrap overflow-x-auto overflow-y-hidden  space-x-2 z-100 bg-primary-foreground" )}>
-      {Options.map((option, index) => (
-        <Toggle
-          key={index}
-          pressed={option.preesed}
-          onPressedChange={option.onClick}
-          size={"sm"}          
-          className={"aria-pressed:bg-red-500  border-0 outline-0 ring-0 aria-pressed:text-accent"}
-        >
-          {option.icon}
-        </Toggle>
-      ))}            
+    <div className="flex flex-col items-center justify-center " >
+      <div
+        className={cn(
+          "w-full lg:w-max shadow-lg items-center justify-start px-6 py-1  self-center rounded-xl flex gap-0.5 lg:gap-2  flex-row flex-nowrap overflow-x-auto overflow-y-hidden  space-x-2 z-100 bg-primary-foreground",
+          fullscreen ? "fixed top-2 self-center" : "relative ",
+        )}
+      >
+        {Options.map((option, index) => (
+          <Toggle
+            key={index}
+            pressed={option.preesed}
+            onPressedChange={option.onClick}
+            size={"sm"}
+            className={
+              "aria-pressed:bg-red-500  border-0 outline-0 ring-0 aria-pressed:text-accent"
+            }
+          >
+            {option.icon}
+          </Toggle>
+        ))}
+      </div>
     </div>
   );
 }
