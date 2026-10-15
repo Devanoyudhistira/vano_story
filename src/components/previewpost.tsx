@@ -75,7 +75,7 @@ export default function Previewpost({
             {" "}
             {title}{" "}
           </h1>
-        <Newsauthorbar name="Your name here" date={previewDate} />
+        <Newsauthorbar title="" description="" profileimage="" name="Your name here" date={previewDate} />
         <div className="px-4 mt-3" dangerouslySetInnerHTML={{ __html: html }} />
       </main>
     </div>
