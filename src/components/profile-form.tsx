@@ -73,6 +73,8 @@ export default function Profileform({
         />
         <div className="flex flex-col gap-2">
           <Textinput
+            max={200}
+            maxname={30}
             changename={changename}
             changebio={changebio}
             oribio={userbio}
@@ -93,7 +95,9 @@ export default function Profileform({
             size={"lg"}
             disabled={
               pending ||
-              topic.length <= 0  ||
+              userbio?.length > 200 ||
+              username?.length > 30 ||
+              topic.length <= 0 ||
               (!updatepath && (!file || file.size > 6000000))
             }
           >
