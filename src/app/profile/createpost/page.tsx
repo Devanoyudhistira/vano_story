@@ -22,17 +22,9 @@ export default function Page() {
         ],
       },
     ],
-  });
-  const [image] = useState<File | null>(null);
+  });  
   const [title] = useState("");
-  const [topic] = useState<Array<string>>([]);
-  const formdata = new FormData();
-  if (image) {
-    formdata.append("thumbnail", image);
-  }
-  formdata.append("content", JSON.stringify(post));
-  formdata.append("title", title);
-  formdata.append("topic", topic[0]);
+  const [topic] = useState<Array<string>>([]);  
 
   return (
     <main className="w-full  ">

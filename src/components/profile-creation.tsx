@@ -11,16 +11,15 @@ export default function Profilecreation({
   className,
   oriimage,
   file,
-  setfile
+  setfile,
 }: {
   className?: string;
   oriimage?: string;
-  file:File | null;
-  setfile:React.Dispatch<React.SetStateAction<File | null>>;
+  file: File | null;
+  setfile: React.Dispatch<React.SetStateAction<File | null>>;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [change, setchange] = useState<string | null>(oriimage ?? null);  
-  
+  const [change, setchange] = useState<string | null>(oriimage ?? null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,11 +34,8 @@ export default function Profilecreation({
     e.preventDefault();
     e.stopPropagation();
 
-    setchange(null);
-
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
+    setfile(null);
+    setchange(null);  
   };
 
   return (

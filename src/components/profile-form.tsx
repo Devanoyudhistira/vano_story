@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import { Spinner } from "./ui/spinner";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 type ProfileAction = (
   topic: string[],
@@ -25,6 +26,11 @@ type profileprops = {
   profileaction: ProfileAction;
 };
 
+type Createresponse = {
+  message: string;
+  success: boolean;
+};
+
 export default function Profileform({
   name,
   bio,
@@ -34,16 +40,13 @@ export default function Profileform({
 }: profileprops) {
   const path = usePathname();
   const updatepath = path.split("/").includes("update");
+  const [pending, setpending] = useState(false);
   const [topic, settopic] = useState<Array<string>>(usertopic ?? []);
   const [username, setusername] = useState<string>(name ?? "");
   const [userbio, setuserbio] = useState<string>(bio ?? "");
   const [profileimage] = useState<string>(image ?? "");
   const [file, setfile] = useState<File | null>(null);
-  console.log(file);
-  const [state, action, pending] = useActionState<CreateProfileState, FormData>(
-    profileaction.bind(null, topic),
-    null,
-  );
+
   function addtopic(newtopic: string): void {
     if (!topic.includes(newtopic) && topic.length !== 3) {
       settopic((prev) => [...prev, newtopic]);
@@ -58,13 +61,54 @@ export default function Profileform({
   function removetopic() {
     settopic([]);
   }
-  useEffect(() => {
-    if (state?.success) {
-      redirect("/profile");
+
+  const formdata = new FormData();
+  formdata.append("username", username);
+  formdata.append("bio", userbio);
+  formdata.append("topic", JSON.stringify(topic));
+  if (file) {
+    formdata.append("image", file);
+  }
+
+  async function createname() {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/createuser`,
+      {
+        method: updatepath ? "PUT" : "POST",
+        body: formdata,
+      },
+    );
+    const data: Createresponse = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message);
     }
-  });
+
+    return { data };
+  }
+
+  const validation =
+    pending ||
+    userbio?.length > 200 ||
+    userbio?.length < 1 ||
+    username?.length > 30 ||
+    username?.length < 1 ||
+    topic.length <= 0 ||
+    (!updatepath && (!file || file.size > 6000000));
+
   return (
-    <form action={action} className="gap-4 flex flex-col items-center px-3">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        toast.promise(createname(), {
+          position: "top-center",
+          loading: "Loading...",
+          error: (err) => err.message,
+          success: (success) => success.data.message,
+        });
+      }}
+      className="gap-4 flex flex-col items-center px-3"
+    >
       <div className="flex flex-col lg:flex-row lg:gap-4 lg:px-4">
         <Profilecreation
           file={file}
@@ -93,13 +137,7 @@ export default function Profileform({
               (file?.size ?? 0) > 6000000 && "bg-red-500!",
             )}
             size={"lg"}
-            disabled={
-              pending ||
-              userbio?.length > 200 ||
-              username?.length > 30 ||
-              topic.length <= 0 ||
-              (!updatepath && (!file || file.size > 6000000))
-            }
+            disabled={validation}
           >
             {" "}
             {pending ? "loading" : "create profile"}
