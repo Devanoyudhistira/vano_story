@@ -9,12 +9,12 @@ export default async function Page() {
   const userdata =await getuser()
   const supabase = await createClient()
   const {data} = await supabase.auth.getSession()
-  // if(!data.session){
-  //   redirect("/sign")
-  // }
-  // if(userdata){
-  //   redirect("/profile")
-  // }
+  if(!data.session){
+    redirect("/sign")
+  }
+  if(userdata){
+    redirect("/profile")
+  }
   return (
     <div>
       <Toaster/>

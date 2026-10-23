@@ -20,7 +20,7 @@ export async function Createprofile(
   // console.log(category);
   const supabaseauth = await createClient();
   const { data } = await supabaseauth.auth.getUser();
-  console.log(data.user?.email)
+  console.log(data.user?.email);
   const name = formdata.get("name");
   const description = formdata.get("description");
   const image = formdata.get("gambar")!;
@@ -35,30 +35,30 @@ export async function Createprofile(
       .substring(2, 10 + 2) +
     "." +
     extension;
-    await supabaseforimage.upload(`profile/${finalname}`, image);
-    try {
-      await create({
-        Email: data.user?.email,
-        Name: name,
-        Profile_image: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`,
-        Description: description,
-        Category: category,
-      });    
-      return { success: true };
-    } catch (err) {
-      console.log(err)
-      return { success: false, message: "err" }; 
-    }
+  await supabaseforimage.upload(`profile/${finalname}`, image);
+  try {
+    await create({
+      Email: data.user?.email,
+      Name: name,
+      Profile_image: `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`,
+      Description: description,
+      Category: category,
+    });
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "err" };
+  }
 }
 
 export async function updateprofile(
   category: Array<string>,
   prev: CreateProfileState,
   formdata: FormData,
-) {  
-  const user = await getuser()
-  if(!user){
-    redirect("/sign")
+) {
+  const user = await getuser();
+  if (!user) {
+    redirect("/sign");
   }
   const supabaseauth = await createClient();
   const { data } = await supabaseauth.auth.getUser();
@@ -67,31 +67,29 @@ export async function updateprofile(
   const image = formdata.get("gambar")!;
   const isimage = image instanceof File;
 
-let imageUrl = user.Profile_image;
+  let imageUrl = user.Profile_image;
 
-if (isimage && image.size > 0) {
-  const extension = image.name.split(".").at(-1);
+  if (isimage && image.size > 0) {
+    const extension = image.name.split(".").at(-1);
 
-  const finalname =
-    Math.random().toString(36).substring(2, 12) +
-    "." +
-    extension;
+    const finalname =
+      Math.random().toString(36).substring(2, 12) + "." + extension;
 
-  await supabaseforimage.upload(`profile/${finalname}`, image);
+    await supabaseforimage.upload(`profile/${finalname}`, image);
 
-  imageUrl = `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`;
-}
+    imageUrl = `https://ntrtbiyiefmemqbcjsad.supabase.co/storage/v1/object/public/YudhistiraIndrusties/profile/${finalname}`;
+  }
   try {
-    await update(user._id.toString() ,{
+    await update(user._id.toString(), {
       Email: data.user?.email,
       Name: name,
       Profile_image: imageUrl,
       Description: description,
       Category: category,
-    });    
+    });
     return { success: true };
   } catch (err) {
-    console.log(err)
-    return { success: false, message: "err" }; 
+    console.log(err);
+    return { success: false, message: "err" };
   }
 }

@@ -6,7 +6,7 @@ import Textinput from "./text-input";
 import Topicoption from "./topic-option";
 import { Button } from "./ui/button";
 import { useActionState, useEffect, useState } from "react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Spinner } from "./ui/spinner";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -39,6 +39,7 @@ export default function Profileform({
   profileaction,
 }: profileprops) {
   const path = usePathname();
+  const router = useRouter();
   const updatepath = path.split("/").includes("update");
   const [pending, setpending] = useState(false);
   const [topic, settopic] = useState<Array<string>>(usertopic ?? []);
@@ -104,7 +105,10 @@ export default function Profileform({
           position: "top-center",
           loading: "Loading...",
           error: (err) => err.message,
-          success: (success) => success.data.message,
+          success: (success) => {
+            router.push("/profile");
+            return success.data.message;
+          },
         });
       }}
       className="gap-4 flex flex-col items-center px-3"
