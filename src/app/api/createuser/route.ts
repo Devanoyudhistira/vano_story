@@ -42,17 +42,17 @@ export async function POST(request: Request) {
       message: "Profile succesfully created",
     });
   } catch (err) {
-    console.log(err);
     return NextResponse.json({
       success: false,
       message: "failed to create a profile please try again",
     });
   }
 }
+
 export async function PUT(request: Request) {
   const user = await getuser();
   if (!user) {
-    return { success: false, message: "err" };
+    return NextResponse.json({ success: false, message: "err" });
   }
   const supabaseauth = await createClient();
   const { data } = await supabaseauth.auth.getUser();
@@ -86,7 +86,7 @@ export async function PUT(request: Request) {
       Description: bio,
       Category: topicarray,
     });
-    return NextResponse.json({ success: true,message:"update success" });
+    return NextResponse.json({ success: true, message: "update success" });
   } catch (err) {
     console.log(err);
     return NextResponse.json({ success: false, message: "update failed" });
